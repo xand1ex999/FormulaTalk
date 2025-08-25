@@ -20,8 +20,10 @@ class authController{
     if(existingUser){
       return res.status(400).json({ message: 'Username already exists' });
     }
-    const createdUser = await User.create({username, email, password: hashedPassword })
-      res.json(createdUser)
+    const createdUser = await User.create({ username, email, password: hashedPassword });
+    const user = createdUser.toObject();
+    delete user.password;
+    res.json(user);
     } catch (error) {
       console.error('Error in registerController:', error);
       res.status(500).json({ message: 'Error creating user', error: error.message });
@@ -47,7 +49,7 @@ class authController{
     const token = jwt.sign(
       { id: user._id, username: user.username },  
       process.env.JWT_SECRET,                  
-      { expiresIn: "12h" }                       
+      { expiresIn: "24h" }                       
     );
 
     res.json({ token, user: { username: user.username, email: user.email } });
