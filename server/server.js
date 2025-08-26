@@ -18,12 +18,11 @@ app.use(express.json());
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
-// app.use('/api', postRoutes);
+app.use('/api', postRoutes);
 
 app.get("/", (req, res) => {
   res.send("🚀 backend is working!");
 });
-
 
 async function startApp() {
   try {
