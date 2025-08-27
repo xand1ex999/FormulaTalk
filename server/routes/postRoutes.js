@@ -12,8 +12,7 @@ router.patch('/posts/:id', authenticateJWT, postController.changeContent);
 router.delete('/posts/:id', authenticateJWT, postController.deletePost);
 
 //likes
-router.post('/posts/:id/like', authenticateJWT, likeController.likePost)
-router.post('/posts/:id/unlike', authenticateJWT, likeController.unlikePost)
+router.post('/posts/:id/toggleLike', authenticateJWT, likeController.toggleLike)
 
 //comments
 
