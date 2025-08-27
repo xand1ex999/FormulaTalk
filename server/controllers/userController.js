@@ -71,7 +71,6 @@ class userController{
       if(!user){
         return res.status(401).json({message: 'User not found'});
       }
-
       const posts = await Post.find({author: user.id})
       .populate('author', 'username avatar')
       .sort({createdAt: -1}); // -1 desc, 1 asc

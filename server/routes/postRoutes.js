@@ -1,12 +1,20 @@
 import express from 'express';
-const router = express.Router();
 import { authenticateJWT } from '../middlewares/authMiddleware.js';
 import postController from '../controllers/postController.js';
+import likeController from '../controllers/likeController.js';
+
+const router = express.Router();
 
 router.get('/posts', postController.getAllPosts);
 router.post('/posts', authenticateJWT, postController.createPost);
 router.get('/posts/:id', postController.getPost);
 router.patch('/posts/:id', authenticateJWT, postController.changeContent);
 router.delete('/posts/:id', authenticateJWT, postController.deletePost);
+
+//likes
+router.post('/posts/:id/like', authenticateJWT, likeController.likePost)
+router.post('/posts/:id/unlike', authenticateJWT, likeController.unlikePost)
+
+//comments
 
 export default router;
