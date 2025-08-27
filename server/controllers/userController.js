@@ -1,3 +1,4 @@
+import Post from "../models/Post.js";
 import User from "../models/User.js";
 
 class userController{
@@ -31,7 +32,7 @@ class userController{
         { username: req.params.username },   
         updates,                            
         { new: true }                        
-      );
+      ).select("-password");
       if (!updatedUser) {
         return res.status(404).json({ message: 'User not found' });
       }
@@ -55,6 +56,29 @@ class userController{
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Server error" });
+    }
+  }
+
+  //posts related
+
+  async getPublicPosts(req, res){
+    try {
+      const { username } = req.params;
+      if(!username){
+        return res.status(401).json({message: 'User not found'});
+      }
+      const user = await User.findOne({username});
+      if(!user){
+        return res.status(401).json({message: 'User not found'});
+      }
+
+      const posts = await Post.find({author: user.id})
+      .populate('author', 'username avatar')
+      .sort({createdAt: -1}); // -1 desc, 1 asc
+      res.json(posts)
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Server error" });
     }
   }
 }
