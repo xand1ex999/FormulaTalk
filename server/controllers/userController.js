@@ -3,6 +3,24 @@ import User from "../models/User.js";
 
 class userController{
 
+  //user search
+  async searchUsers(req, res){
+    try {
+      const { search } = req.query;
+      if (!search) {
+        return res.status(400).json({ message: "Search query is required" });
+      }
+      const users = await User.find({
+        username: { $regex: search.trim(), $options: "i" } //regex = (contains) analog
+      }).select("username avatar");   
+    res.json(users);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Server error" });
+    }
+  }
+
+  //profile related
   async getProfile(req, res){
     try {
       const user = await User.findOne({ username: req.params.username }).select("-password");

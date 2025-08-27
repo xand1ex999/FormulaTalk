@@ -4,6 +4,9 @@ import userController from '../controllers/userController.js'
 
 const router = express.Router();
 
+//user search
+router.get("/", userController.searchUsers);
+
 //profile related
 router.get('/:username', authenticateJWT, userController.getProfile)
 router.patch('/:username', authenticateJWT, userController.changeBioOrAvatar);
