@@ -3,4 +3,17 @@ body {
   font-family: 'Titillium Web', sans-serif;
   background: #0d0d0d;
   color: #fff;
+  overflow-y: auto !important;
 }
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow-x: hidden; 
+}
+

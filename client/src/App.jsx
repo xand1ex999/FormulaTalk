@@ -6,7 +6,8 @@ import AuthPage from "./pages/Auth/AuthPage.jsx";
 import Home from "./pages/Home";
 import Header from "./components/Header/Header.jsx";
 import RequireAuth from "./components/RequireAuth.jsx";
-import Profile from "./components/Profile/Profile.jsx"
+import Profile from "./pages/Profile/Profile.jsx"
+import Feed from "./pages/Feed/Feed.jsx";
 
 function App() {
   return (
@@ -26,6 +27,11 @@ function App() {
               <Profile />
             </RequireAuth>}
              />
+             <Route path="/feed" element={
+            <RequireAuth>
+              <Feed />
+            </RequireAuth>
+          }/>
         </Routes>
       </Router>
     </AuthProvider>
