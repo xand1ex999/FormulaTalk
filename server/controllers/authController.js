@@ -23,7 +23,13 @@ class authController{
     const createdUser = await User.create({ username, email, password: hashedPassword });
     const user = createdUser.toObject();
     delete user.password;
-    res.json(user);
+    console.log("Successfully registered");
+    const token = jwt.sign(
+      { id: user._id, username: user.username },  
+      process.env.JWT_SECRET,                  
+      { expiresIn: "24h" }                       
+    );
+    res.json({token, user});
     } catch (error) {
       console.error('Error in registerController:', error);
       res.status(500).json({ message: 'Error creating user', error: error.message });

@@ -1,33 +1,55 @@
 import { useState } from 'react';
-import registerPic from '../../assets/registerPic.jpg'
-import './AuthPage.css'
-import axios from 'axios'
+import registerPic from '../../assets/registerPic.jpg';
+import { replace, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import './AuthPage.css';
+import axios from 'axios';
 
 export default function AuthPage() {
+  const { login } = useAuth();
+  const navigate = useNavigate();
   const [mode, setMode] = useState("signin"); 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e){
     e.preventDefault();
+    setLoading(true);
+    setError(null);
     try {
-      if(mode === 'register'){
-        setLoading("Loading...")
-        await axios.post('/api/auth/register', { username, email, password });
-      } else if(mode === 'signin'){
-        setLoading("Loading...")
-        await axios.post('/api/auth/login', { email, password });
-      }
+      const res = await axios.post(mode === 'register' ? "/api/auth/register": "/api/auth/login",
+        mode === "register" 
+        ? { username, email, password }
+        : { email, password }
+      );
+      console.log("res.data ===>", res.data);
+      const {token, user} = res.data;
+      login(token)
+      toast.success(
+      mode === "register"
+        ? `Welcome, ${user.username}! 🎉 Your account has been created.`
+        : `Welcome back, ${user.username}! 👋`
+      );
+      navigate("/", {replace: true})
     } catch (error) {
-      console.error(error)
-      setError("Something went wrong, please try again.");
+      console.error(error);
+      if (error.response?.data?.message) {
+        setError(error.response.data.message);
+      } else {
+        setError("Something went wrong, please try again.");
+      }
+      toast.error(error.response?.data?.message || "Something went wrong, please try again.");
     }    
   }
 
   return (
-    <div className="auth-container">
+    <>
+        <div className="auth-container">
       <div className="auth-card">
         <h1 className='register-login-text'>{mode === 'signin'? "SIGN IN" : "CREATE ACCOUNT"}</h1>
         <img src={registerPic} alt="logo" />
@@ -76,8 +98,19 @@ export default function AuthPage() {
             {mode === "signin" ? "Sign In" : "Register"}
           </button>
         </form>
-        {error && <p>{error}</p>}
+        {error && <p className="error-message">{error}</p>}
       </div>
     </div>
+      <ToastContainer
+      position="top-right"
+      autoClose={3000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      pauseOnHover
+      draggable
+      theme="dark"
+    />
+    </>
   );
 }

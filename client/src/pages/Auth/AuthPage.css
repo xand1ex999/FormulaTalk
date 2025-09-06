@@ -140,3 +140,10 @@ html, body {
 ::-webkit-scrollbar {
   display: none;
 }
+
+.error-message {
+  color: #ff4d4f;
+  margin-top: 8px;
+  font-size: 14px;
+  text-align: center;
+}

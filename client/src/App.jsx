@@ -1,17 +1,39 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext.jsx";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import AuthPage from "./pages/Auth/AuthPage.jsx";
 import Home from "./pages/Home";
 import Header from "./components/Header/Header.jsx";
+import RequireAuth from "./components/RequireAuth.jsx";
 
 function App() {
   return (
-    <Router>
-      <Header/>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/auth" element={<AuthPage />} />
-      </Routes>
-    </Router>
+    <>
+    <AuthProvider>
+      <Router>
+        <Header/>
+        <Routes>
+          <Route path="/auth" element={<AuthPage />} />
+          <Route path="/" element={
+            <RequireAuth>
+              <Home />
+            </RequireAuth>
+          }/>
+        </Routes>
+      </Router>
+    </AuthProvider>
+    <ToastContainer
+      position="top-right"
+      autoClose={3000}
+      hideProgressBar={true}
+      newestOnTop={false}
+      closeOnClick
+      pauseOnHover
+      draggable
+      theme="dark"
+    />
+    </>
   );
 }
 
