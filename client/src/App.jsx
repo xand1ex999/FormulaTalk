@@ -6,6 +6,7 @@ import AuthPage from "./pages/Auth/AuthPage.jsx";
 import Home from "./pages/Home";
 import Header from "./components/Header/Header.jsx";
 import RequireAuth from "./components/RequireAuth.jsx";
+import Profile from "./components/Profile/Profile.jsx"
 
 function App() {
   return (
@@ -20,6 +21,11 @@ function App() {
               <Home />
             </RequireAuth>
           }/>
+          <Route path="/profile/:username" element={
+            <RequireAuth>
+              <Profile />
+            </RequireAuth>}
+             />
         </Routes>
       </Router>
     </AuthProvider>
