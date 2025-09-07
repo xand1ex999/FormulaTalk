@@ -51,6 +51,14 @@ nav ul li {
   position: relative; 
 }
 
+nav ul a {
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative; 
+  text-decoration: none;
+}
+
 nav ul li::after {
   content: "";
   position: absolute;

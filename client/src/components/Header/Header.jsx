@@ -18,7 +18,7 @@ const Header = () => {
       <div className="container">
         <div className="header_items">
           <div className="header_logo">
-            <img src={f1Logo} alt="f1Logo" />
+            <img src={f1Logo} alt="f1Logo" onClick={()=>{navigate("/feed")}} />
           </div>
           <nav>
             {user ? 

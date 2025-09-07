@@ -37,6 +37,7 @@ const Profile = () => {
     fetchProfile();
   }, [username]);
 
+
   const openEditModal = () => {
     setIsEditModalOpen(true);
   };
