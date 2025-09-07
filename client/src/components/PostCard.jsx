@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 const PostCard = ({ post, user, onLike, onOpenComments }) => {
   const navigate = useNavigate();
 
-  
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const now = new Date();
@@ -15,7 +14,7 @@ const PostCard = ({ post, user, onLike, onOpenComments }) => {
   };
 
   return (
-    <div className="post-card">
+    <div className="post-card" onClick={() => onOpenComments(post)}>
       <div className="post-header">
         <div className="post-author" onClick={() => navigate(`/profile/${post.author.username}`)}>
           <img src={post.author.avatar || `https://ui-avatars.com/api/?name=${post.author.username}&background=random`} 
@@ -35,8 +34,8 @@ const PostCard = ({ post, user, onLike, onOpenComments }) => {
       )}
 
       <div className="post-actions">
-        <button className={`like-btn ${post.likes.includes(user?._id) ? 'liked' : ''}`} onClick={() => onLike(post._id)}>❤️</button>
-        <button className="comment-btn" onClick={() => onOpenComments(post)}>💬</button>
+        <button className={`like-btn ${post.likes.includes(user?._id) ? 'liked' : ''}`} onClick={(e) => {e.stopPropagation(); onLike(post._id)}}>❤️</button>
+        <button className="comment-btn">💬</button>
       </div>
 
       {post.likes.length > 0 && (
