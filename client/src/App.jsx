@@ -27,11 +27,7 @@ function App() {
               <Feed />
             </RequireAuth>
           }/>
-          <Route path="/profile/:username" element={
-            <RequireAuth>
-              <Profile />
-            </RequireAuth>
-          }/>
+          <Route path="/profile/:username" element={<Profile />}/>
           <Route path="*" element={<RootRedirect />} />
         </Routes>
       </Router>

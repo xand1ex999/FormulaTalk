@@ -1,0 +1,73 @@
+.search-bar {
+  position: fixed;
+  left: 20px; 
+  top: 100px; 
+  width: 250px;
+  background: #1e1e1e;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  padding: 15px;
+  z-index: 100;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+  background: #2c2c2c;
+  color: #fff;
+}
+
+.search-results {
+  position: fixed;
+  margin-top: 71px;
+  max-width: 200px;
+  margin-left: 45px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 300px; 
+  overflow-y: auto; 
+  background: #1a1a1a;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.search-results p {
+  width: 200px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #aaa;
+  margin: 0 0 5px 0;
+  z-index: 100;
+}
+
+.search-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.search-user:hover {
+  background: #2c2c2c;
+}
+
+.username-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.username-result {
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+}

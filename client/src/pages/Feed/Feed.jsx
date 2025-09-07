@@ -5,6 +5,7 @@ import { useAuth } from '../../context/AuthContext';
 import PostCard from '../../components/PostCard.jsx';
 import CommentModal from '../../components/CommentModal.jsx';
 import './Feed.css';
+import SearchBar from '../../components/SearchBar/SearchBar.jsx';
 
 const Feed = () => {
   const { user } = useAuth();
@@ -57,6 +58,8 @@ const Feed = () => {
   if (error) return <div className="feed-container"><div className="error">{error}</div></div>;
 
   return (
+    <>
+    <SearchBar/>
     <div className="feed-container">
       <div className="feed">
         {posts.map(post => (
@@ -80,6 +83,7 @@ const Feed = () => {
       )}
       <ToastContainer position="top-right" autoClose={2000} hideProgressBar={false} theme="dark"/>
     </div>
+    </>
   );
 };
 
