@@ -217,3 +217,200 @@
     border-right: none;
   }
 }
+
+/* МОДАЛКА */
+.comment-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.comment-modal-content {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  height: 80%;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Левая часть с картинкой */
+.modal-left {
+  flex: 1;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-post-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.no-image {
+  color: #aaa;
+  font-size: 14px;
+}
+
+/* Правая часть с инфой */
+.modal-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+/* Шапка */
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+}
+
+.modal-header .author-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.modal-header .author-username {
+  font-weight: bold;
+  flex-grow: 1;
+}
+
+.close-modal {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: #333;
+}
+
+/* Текст поста */
+.modal-post-content {
+  margin-top: -10px;
+  margin-bottom: 12px;
+  margin-left: 4px;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-post-content .author-username {
+  font-weight: bold;
+  margin-right: 6px;
+}
+
+.modal-post-content .author-description {
+  color: #555;
+}
+
+/* Комментарии */
+.modal-comments {
+  flex-grow: 1;
+  overflow-y: auto;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-comment {
+  display: flex;
+  align-items: flex-start; 
+  gap: 8px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.modal-comment .comment-author {
+  font-weight: bold;
+}
+
+.no-comments {
+  font-size: 14px;
+  color: #888;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Лайки и действия */
+.modal-actions {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  margin-top: -1px;
+}
+
+.modal-actions .like-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+
+.modal-actions .like-count {
+  font-size: 15px;
+  font-weight: 600;
+  color: #555;
+  margin-right: 10px;
+}
+
+/* Добавить комментарий */
+.modal-add-comment {
+  display: flex;
+  border-top: 1px solid #eee;
+  padding-top: 9px;
+  gap: 8px;
+}
+
+.modal-add-comment input {
+  flex-grow: 1;
+  padding: 6px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.modal-add-comment button {
+  background: #0095f6;
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.modal-add-comment button:hover {
+  background: #007acc;
+}
+
+
+.comment-avatar {
+  flex-shrink: 0; 
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.modal-comment .comment-text {
+  color: #262626;
+  word-break: break-word;   
+  white-space: pre-wrap;     
+  flex: 1;                  
+}

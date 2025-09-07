@@ -5,7 +5,9 @@ class postController{
 
   async getAllPosts(req, res){
     try {
-      const posts = await Post.find().populate('author', 'username avatar');
+      const posts = await Post.find()
+      .populate('author', 'username avatar')
+      .populate('comments.author', 'username avatar');
       if(posts.length === 0){
         return res.status(200).json({ message: 'There are no posts so far' });
       }
@@ -26,7 +28,9 @@ class postController{
         return res.status(400).json({message: 'Content is required'});
       }
       const newPost = await Post.create({author: req.user.id, content, image: image || null})
-      const populatedPost = await newPost.populate('author', 'username avatar');
+      const populatedPost = await newPost
+      .populate('author', 'username avatar')
+      .populate('comments.author', 'username avatar');
       res.status(201).json(populatedPost);
     } catch (error) {
       console.error(error)
@@ -40,7 +44,9 @@ class postController{
       if(!id){
         return res.status(401).json({message: 'No id provided'})
       }
-      const post = await Post.findById(id).populate('author', 'username avatar');
+      const post = await Post.findById(id)
+      .populate('author', 'username avatar')
+      .populate('comments.author', 'username avatar');
       res.status(200).json(post)
     } catch (error) {
       console.error(error)
@@ -68,7 +74,9 @@ class postController{
       if (content) post.content = content;
       if (image) post.image = image;
         await post.save();
-      const updatedPost = await post.populate('author', 'username avatar');
+      const updatedPost = await post
+      .populate('author', 'username avatar')
+      .populate('comments.author', 'username avatar');
       res.status(200).json(updatedPost);
     } catch (error) {
         console.error(error);

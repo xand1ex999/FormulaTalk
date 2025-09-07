@@ -13,9 +13,11 @@ class likeController{
       if (!post) {
         return res.status(404).json({ message: "Post not found" });
       }
-      post.comments.push({author: req.user.id, text: comment})
+      post.comments.push({ author: req.user.id, text: comment });
       await post.save();
-      res.status(200).json(post.comments);
+      await post.populate('comments.author', 'username avatar');
+      const newComment = post.comments[post.comments.length - 1];
+      res.status(200).json(newComment);
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Server error" });
@@ -25,7 +27,7 @@ class likeController{
   async getAllComments(req, res){
     try {
       const { id } = req.params;
-      const post = await Post.findById(id)
+      const post = await Post.findById(id).populate('comments.author', 'username avatar');
       if (!post) {
         return res.status(404).json({ message: "Post not found" });
       }
@@ -54,6 +56,7 @@ class likeController{
       }
       comment.text = updatedComment;
       await post.save();
+      await post.populate('comments.author', 'username avatar');
       res.status(200).json(comment);
     } catch (error) {
       console.error(error);
