@@ -6,6 +6,8 @@ import PostCard from '../../components/PostCard.jsx';
 import CommentModal from '../../components/CommentModal.jsx';
 import './Feed.css';
 import SearchBar from '../../components/SearchBar/SearchBar.jsx';
+import PostForm from '../../components/PostForm/PostForm.jsx';
+import Pagination from '../../components/Pagination/Pagination.jsx';
 
 const Feed = () => {
   const { user } = useAuth();
@@ -13,13 +15,16 @@ const Feed = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activePost, setActivePost] = useState(null);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     async function fetchPosts() {
       try {
         setLoading(true);
-        const res = await axios.get('/api/posts');
-        setPosts(res.data);
+        const res = await axios.get(`/api/posts?page=${page}`);
+        setPosts(res.data.posts);
+        setTotalPages(res.data.totalPages);
       } catch (err) {
         console.error(err);
         setError('Failed to load posts');
@@ -28,7 +33,7 @@ const Feed = () => {
       }
     }
     fetchPosts();
-  }, []);
+  }, [page]);
 
   const handleLike = async (postId) => {
     try {
@@ -51,6 +56,12 @@ const Feed = () => {
     );
   };
 
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setPage(newPage);
+    }
+  };
+
   const openModal = (post) => setActivePost(post);
   const closeModal = () => setActivePost(null);
 
@@ -60,6 +71,7 @@ const Feed = () => {
   return (
     <>
     <SearchBar/>
+    <PostForm user={user}/>
     <div className="feed-container">
       <div className="feed">
         {posts.map(post => (
@@ -83,6 +95,7 @@ const Feed = () => {
       )}
       <ToastContainer position="top-right" autoClose={2000} hideProgressBar={false} theme="dark"/>
     </div>
+    <Pagination page={page} totalPages={totalPages} onPageChange={handlePageChange} />
     </>
   );
 };

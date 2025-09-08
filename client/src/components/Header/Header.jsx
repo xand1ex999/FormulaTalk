@@ -3,6 +3,7 @@ import './Header.css'
 import f1Logo from '../../assets/f1Logo.png'
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
+import tyresPattern from '../../assets/tyresPattern.jpg'
 
 const Header = () => {
   const {user, logout} = useAuth();
@@ -14,7 +15,12 @@ const Header = () => {
   }
   
   return (
-    <header>
+    <header
+    style={{
+      backgroundImage: `url(${tyresPattern})`,
+      backgroundRepeat: "repeat",
+      backgroundSize: "auto"
+    }}>
       <div className="container">
         <div className="header_items">
           <div className="header_logo">
