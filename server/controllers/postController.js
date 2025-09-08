@@ -32,19 +32,20 @@ class postController {
       }
 }
 
-  async createPost(req, res) {
+    async createPost(req, res) {
     try {
       if (!req.user) {
         return res.status(401).json({ message: 'Unauthorized' });
       }
-      const { content, image } = req.body;
-      if (!content) {
-        return res.status(400).json({ message: 'Content is required' });
+      const { content } = req.body;
+      let imageUrl = null;
+      if (req.file) {
+        imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
       }
       const newPost = await Post.create({
         author: req.user.id,
         content,
-        image: image || null
+        image: imageUrl
       });
       await newPost.populate([
         { path: 'author', select: 'username avatar' },
@@ -56,6 +57,7 @@ class postController {
       res.status(500).json({ message: 'Server error' });
     }
   }
+
 
   async getPost(req, res) {
     try {

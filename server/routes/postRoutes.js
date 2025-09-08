@@ -3,11 +3,26 @@ import { authenticateJWT } from '../middlewares/authMiddleware.js';
 import postController from '../controllers/postController.js';
 import likeController from '../controllers/likeController.js';
 import commentController from '../controllers/commentController.js';
+import multer from 'multer';
+import fs from 'fs';
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    const uploadPath = 'uploads/';
+    if (!fs.existsSync(uploadPath)) fs.mkdirSync(uploadPath);
+    cb(null, uploadPath); 
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' + file.originalname);
+  }
+});
+
+const upload = multer({ storage });
 
 const router = express.Router();
 
 router.get('/posts', postController.getAllPosts);
-router.post('/posts', authenticateJWT, postController.createPost);
+router.post('/posts', authenticateJWT, upload.single('image'), postController.createPost);
 router.get('/posts/:id', postController.getPost);
 router.patch('/posts/:id', authenticateJWT, postController.changeContent);
 router.delete('/posts/:id', authenticateJWT, postController.deletePost);

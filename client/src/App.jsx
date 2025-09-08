@@ -7,6 +7,7 @@ import Header from "./components/Header/Header.jsx";
 import RequireAuth from "./components/RequireAuth.jsx";
 import Profile from "./pages/Profile/Profile.jsx"
 import Feed from "./pages/Feed/Feed.jsx";
+import Chat from "./components/Chat/Chat.jsx";
 
 // For redirecting based on auth status
 const RootRedirect = () => {
@@ -28,6 +29,7 @@ function App() {
             </RequireAuth>
           }/>
           <Route path="/profile/:username" element={<Profile />}/>
+          <Route path="/chat" element={<Chat />} />
           <Route path="*" element={<RootRedirect />} />
         </Routes>
       </Router>
