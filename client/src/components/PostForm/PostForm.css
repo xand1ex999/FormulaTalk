@@ -1,18 +1,20 @@
 .post-form {
   background: #0d0d0d;
-  border: 2px solid #806579; /* фирменный красный F1 */
+  border: 2px solid #806579; 
   border-radius: 12px;
   padding: 16px;
-  margin: 20px auto;
-  margin-top: 100px;
-  max-width: 600px;
-  box-shadow: 0 4px 12px rgba(170, 89, 170, 0.4);
-  font-family: 'Arial', sans-serif;
+  margin: 20px 0;
+  width: 100%;           /* форма занимает всю ширину feed-container */
+  max-width: 600px;      /* и сама ограничена */
+  box-shadow: 0 1px 3px rgba(255, 255, 255, 0.5); 
+  font-family: 'Titillium Web', sans-serif;
 }
+
+
 
 .post-form textarea {
   width: 100%;
-  min-height: 80px;
+  min-height: 55px;
   border: none;
   border-radius: 8px;
   padding: 12px;
@@ -25,12 +27,15 @@
 
 .image-preview {
   margin-top: 12px;
+  position: relative;
+  display: inline-block;
 }
 
 .image-preview img {
   max-width: 100%;
   border-radius: 8px;
   border: 2px solid #806579; 
+  display: block;
 }
 
 .form-actions {
@@ -57,10 +62,11 @@
 }
 
 .submit-button {
+  font-family: 'Titillium Web', sans-serif;
   background: #e10600;
   border: 1px solid #806579;
   color: white;
-  padding: 8px 30px;
+  padding: 8px 40px;
   border-radius: 20px;
   cursor: pointer;
   font-weight: bold;
@@ -69,4 +75,25 @@
 
 .submit-button:hover {
   background: #ff1c10;
+}
+
+
+.close-image-preview {
+  position: absolute;
+  top: 10px;    
+  left: 10px;   
+  border: 2px solid #806579;
+  color: #806579;
+  background: rgba(0, 0, 0, 0.5); 
+  padding: 4px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close-image-preview:hover {
+  background: #e10600;
+  color: white;
 }

@@ -1,0 +1,26 @@
+.pagination {
+  margin-top: 0px;
+}
+
+.pagination .page-btn {
+  font-family: 'Titillium Web', sans-serif;
+  background: none;
+  border: 1px solid #ccc;
+  color: #ebdddd;
+  padding: 6px 20px;
+  border-radius: 12px;
+  margin-left: 20px;
+  margin-right: 20px;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+.pagination .page-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.pagination .page-btn:hover:not(:disabled) {
+  background: #d83c3c;
+  color: white;
+}

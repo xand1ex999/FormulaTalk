@@ -1,15 +1,31 @@
-.feed-container {
-  max-width: 500px;
-  max-height: 500px;
+.feed-layout {
+  display: grid;
+  grid-template-columns: 20px 1fr; 
+  gap: 20px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 20px 0;
-  margin-top: 100px;
+  padding: 20px;
+  margin-top: 48px;
 }
 
-.feed {
+.feed-layout > .search-bar {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.feed-main {
   display: flex;
   flex-direction: column;
+  align-items: center; 
   gap: 20px;
+  width: 100%;
+}
+
+.feed-container {
+  max-width: 600px;  
+  width: 100%;
+  margin: 0 auto;
+  margin-top: -20px;
 }
 
 .post-card {
@@ -17,6 +33,7 @@
   border: 1px solid #dbdbdb;
   border-radius: 8px;
   overflow: hidden;
+  margin-bottom: 20px;
 }
 
 /* Header */
@@ -70,6 +87,7 @@
   width: 100%;
   aspect-ratio: 1;
   overflow: hidden;
+  position: relative; 
 }
 
 .post-image {
@@ -206,20 +224,8 @@
   color: #ed4956;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .feed-container {
-    padding: 0;
-  }
-  
-  .post-card {
-    border-radius: 0;
-    border-left: none;
-    border-right: none;
-  }
-}
 
-/* МОДАЛКА */
+/* ---------------- Modalka ---------------- */
 .comment-modal {
   position: fixed;
   top: 0;
@@ -243,7 +249,7 @@
   overflow: hidden;
 }
 
-/* Левая часть с картинкой */
+
 .modal-left {
   flex: 1;
   background: #000;
@@ -263,7 +269,7 @@
   font-size: 14px;
 }
 
-/* Правая часть с инфой */
+
 .modal-right {
   flex: 1;
   display: flex;
@@ -273,7 +279,7 @@
   overflow-y: auto;
 }
 
-/* Шапка */
+
 .modal-header {
   display: flex;
   align-items: center;
@@ -303,7 +309,7 @@
   color: #333;
 }
 
-/* Текст поста */
+
 .modal-post-content {
   margin-top: -10px;
   margin-bottom: 12px;
@@ -320,7 +326,7 @@
   color: #555;
 }
 
-/* Комментарии */
+
 .modal-comments {
   flex-grow: 1;
   overflow-y: auto;
@@ -348,7 +354,7 @@
   margin-top: 20px;
 }
 
-/* Лайки и действия */
+
 .modal-actions {
   display: flex;
   align-items: center;
@@ -363,7 +369,6 @@
   cursor: pointer;
 }
 
-
 .modal-actions .like-count {
   font-size: 15px;
   font-weight: 600;
@@ -371,7 +376,6 @@
   margin-right: 10px;
 }
 
-/* Добавить комментарий */
 .modal-add-comment {
   display: flex;
   border-top: 1px solid #eee;
@@ -399,7 +403,6 @@
 .modal-add-comment button:hover {
   background: #007acc;
 }
-
 
 .comment-avatar {
   flex-shrink: 0; 

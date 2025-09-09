@@ -8,6 +8,7 @@ import './Feed.css';
 import SearchBar from '../../components/SearchBar/SearchBar.jsx';
 import PostForm from '../../components/PostForm/PostForm.jsx';
 import Pagination from '../../components/Pagination/Pagination.jsx';
+import Footer from '../../components/Footer/Footer.jsx';
 
 const Feed = () => {
   const { user } = useAuth();
@@ -70,32 +71,37 @@ const Feed = () => {
 
   return (
     <>
-    <SearchBar/>
-    <PostForm user={user}/>
-    <div className="feed-container">
-      <div className="feed">
-        {posts.map(post => (
-          <PostCard 
-            key={post._id} 
-            post={post} 
+    <div className="feed-layout">
+      <SearchBar />
+      <div className='feed-main'>
+        <PostForm user={user}/>
+      <div className="feed-container">
+        <div className="feed">
+          {posts.map(post => (
+            <PostCard 
+              key={post._id} 
+              post={post} 
+              user={user} 
+              onLike={handleLike} 
+              onOpenComments={openModal} 
+            />
+          ))}
+        </div>
+        {activePost && (
+          <CommentModal 
+            post={activePost} 
             user={user} 
+            onClose={closeModal} 
             onLike={handleLike} 
-            onOpenComments={openModal} 
+            onAddComment={handleAddComment} 
           />
-        ))}
+        )}
+        <ToastContainer position="top-right" autoClose={2000} hideProgressBar={false} theme="dark"/>
       </div>
-      {activePost && (
-        <CommentModal 
-          post={activePost} 
-          user={user} 
-          onClose={closeModal} 
-          onLike={handleLike} 
-          onAddComment={handleAddComment} 
-        />
-      )}
-      <ToastContainer position="top-right" autoClose={2000} hideProgressBar={false} theme="dark"/>
+      <Pagination page={page} totalPages={totalPages} onPageChange={handlePageChange} />
+      </div>
     </div>
-    <Pagination page={page} totalPages={totalPages} onPageChange={handlePageChange} />
+    <Footer />
     </>
   );
 };

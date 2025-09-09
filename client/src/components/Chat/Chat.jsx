@@ -15,7 +15,7 @@ const Chat = () => {
       <div>
         CHAT IS GONNA BE HERE SOON!!!!!!!!!!!!!
       </div>
-      <div>
+      <div> 
         CHAT IS GONNA BE HERE SOON!!!!!!!!!!!!!
       </div>
     </>

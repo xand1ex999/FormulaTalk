@@ -29,8 +29,7 @@ const SearchBar = () => {
     <>
     <div className='search-bar'>
       <input type="text" placeholder="Search..." value={query} onChange={(e)=>{setQuery(e.target.value)}} />
-    </div>
-    {usersFound.length > 0 && (
+      {usersFound.length > 0 && (
       <div className='search-results'>
         <p>Search Result:</p>
         {usersFound.map(user => (
@@ -41,6 +40,7 @@ const SearchBar = () => {
         ))}
       </div>
     )}
+    </div>
     </>
   )
 }

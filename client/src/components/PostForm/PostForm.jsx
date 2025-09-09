@@ -53,6 +53,7 @@ const PostForm = ({ user }) => {
         {preview && (
           <div className="image-preview">
             <img src={preview} alt="preview" />
+            <button onClick={() => {setImage(null); setPreview(null);}} className="close-image-preview">Delete Image</button>
           </div>
         )}
 

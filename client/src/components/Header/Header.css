@@ -6,7 +6,7 @@ header {
   height: 70px;        
   background-color: #15151E; 
   z-index: 1000;        
-  box-shadow: 0 1px 3px rgba(255, 255, 255, 0.5); 
+  box-shadow: 0 1px 5px rgba(255, 255, 255, 0.5); 
 }
 
 body {
