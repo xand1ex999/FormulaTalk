@@ -20,7 +20,7 @@ const PostForm = ({ user }) => {
     try {
       const res = await axios.post("/api/posts", formData, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          // "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });

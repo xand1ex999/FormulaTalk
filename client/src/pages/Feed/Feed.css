@@ -214,7 +214,9 @@
 
 /* Loading and error states */
 .loading, .error {
+  margin-top: 150px;
   text-align: center;
+  font-weight: 750;
   padding: 40px;
   font-size: 16px;
   color: #8e8e8e;

@@ -23,6 +23,7 @@ const Profile = () => {
         setLoading(true);
         const res = await axios.get(`/api/users/${username}`);
         setProfileData(res.data);
+        console.log("Loaded profile:", res.data);
         setEditForm({
           bio: res.data.bio || '',
           avatar: res.data.avatar || ''
