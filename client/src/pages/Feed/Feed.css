@@ -212,6 +212,15 @@
   opacity: 1;
 }
 
+.post-comments-preview{
+  font-size: 13px;
+  color: #8e8e8e;
+  margin: -5px 0px 8px 15px;
+  cursor: pointer;
+}
+
+
+
 /* Loading and error states */
 .loading, .error {
   margin-top: 150px;
@@ -360,6 +369,7 @@
 .modal-actions {
   display: flex;
   align-items: center;
+  justify-content: flex-start; 
   margin-bottom: 12px;
   margin-top: -1px;
 }
@@ -367,8 +377,14 @@
 .modal-actions .like-btn {
   background: none;
   border: none;
-  font-size: 20px;
+  font-size: 22px;
   cursor: pointer;
+}
+
+.modal-actions span {
+  font-size: 14px;
+  font-weight: 600;
+  color: #555;
 }
 
 .modal-actions .like-count {

@@ -10,7 +10,8 @@ const CommentModal = ({ post, user, onClose, onLike, onAddComment }) => {
     if (!commentText.trim()) return;
     try {
       const res = await axios.post(`/api/posts/${post._id}/comments`, { comment: commentText });
-      onAddComment(post._id, res.data[res.data.length - 1]); 
+      console.log('Comment added:', res.data);
+      onAddComment(post._id, res.data);
       setCommentText('');
       toast.success('Comment added!');
     } catch (err) {
@@ -18,6 +19,7 @@ const CommentModal = ({ post, user, onClose, onLike, onAddComment }) => {
       toast.error('Failed to add comment');
     }
   };
+
 
   return (
     <div className="comment-modal" onClick={onClose}>

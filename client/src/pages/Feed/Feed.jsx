@@ -36,10 +36,15 @@ const Feed = () => {
     fetchPosts();
   }, [page]);
 
-  const handleLike = async (postId) => {
+ const handleLike = async (postId) => {
     try {
       const res = await axios.post(`/api/posts/${postId}/toggleLike`);
-      setPosts(posts.map(post => post._id === postId ? { ...post, likes: res.data.likes } : post));
+      const updatedPost = { ...posts.find(p => p._id === postId), likes: res.data.likes };
+      setPosts(posts.map(post => post._id === postId ? updatedPost : post)); //update the specific post in the list (if _id === postId, change it to updatedPost, else keep it the same)
+
+      if (activePost && activePost._id === postId) {
+        setActivePost(updatedPost);
+      }
       toast.success(res.data.message);
     } catch (err) {
       console.error(err);
@@ -47,14 +52,14 @@ const Feed = () => {
     }
   };
 
+
   const handleAddComment = (postId, newComment) => {
-    setPosts(prev =>
-      prev.map(p =>
-        p._id === postId
-          ? { ...p, comments: [...p.comments, newComment] }
-          : p
-      )
-    );
+    console.log('Adding comment to post:', postId, newComment);
+    console.log("Posts:", posts);
+    setPosts(prev => prev.map(p => p._id === postId ? {...p, comments: [...p.comments, newComment]} : p));
+    if (activePost && activePost._id === postId) {
+      setActivePost({...activePost, comments: [...activePost.comments, newComment]});
+    }
   };
 
   const handlePageChange = (newPage) => {

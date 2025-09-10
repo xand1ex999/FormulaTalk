@@ -46,6 +46,11 @@ const PostCard = ({ post, user, onLike, onOpenComments }) => {
         <span className="author-username">{post.author.username}</span>
         <span className="post-text">{post.content}</span>
       </div>
+      {post.comments.length > 0 && (
+        <div className="post-comments-preview">
+          View {post.comments.length === 1 ? '1 comment' : `all ${post.comments.length} comments`}
+        </div>
+      )}
     </div>
   );
 };
