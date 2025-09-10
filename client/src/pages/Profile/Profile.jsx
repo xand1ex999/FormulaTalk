@@ -16,6 +16,7 @@ const Profile = () => {
     avatar: ''
   });
   const [submitting, setSubmitting] = useState(false);
+  const [activeTab, setActiveTab] = useState('information');
 
   useEffect(() => {
     async function fetchProfile() {
@@ -37,6 +38,10 @@ const Profile = () => {
     }
     fetchProfile();
   }, [username]);
+
+  useEffect(() => {
+    console.log("Active tab changed to:", activeTab);
+  }, [activeTab]);
 
 
   const openEditModal = () => {
@@ -176,6 +181,11 @@ const Profile = () => {
           <h1 className="profile-username">{profileData.username}</h1>
           <p className="profile-join-date">Joined {joinDate}</p>
         </div>
+      </div>
+
+      <div className='profile-nav'>
+        <button onClick={()=>{setActiveTab('information')}}>Information</button>
+        <button onClick={()=>{setActiveTab('posts')}}>Posts</button>
       </div>
 
       <div className="detail-card">

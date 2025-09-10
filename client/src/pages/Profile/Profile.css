@@ -46,6 +46,32 @@
   margin-bottom: 2rem;
 }
 
+.profile-nav{
+  display: flex;
+  border-bottom: 2px solid #e5e7eb;
+  margin-bottom: 1.5rem;
+  padding-bottom:10px ;
+  margin-top: -1.4rem;
+}
+
+.profile-nav button{
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: 600;
+  background: none;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #4b5563;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.profile-nav button:hover {
+  color: #e00;
+}
+
+
 .detail-card {
   background: white;
   padding: 1.5rem;

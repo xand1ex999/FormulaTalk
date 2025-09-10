@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import { useAuth } from '../../context/AuthContext';
+import {useParams, useNavigate } from 'react-router-dom';
 import PostCard from '../../components/PostCard.jsx';
 import CommentModal from '../../components/CommentModal.jsx';
 import './Feed.css';
@@ -12,12 +13,21 @@ import Footer from '../../components/Footer/Footer.jsx';
 
 const Feed = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activePost, setActivePost] = useState(null);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const { postId } = useParams();
+
+  useEffect(() => {
+    if (postId && posts.length > 0) {
+      const post = posts.find(p => p._id === postId);
+      if (post) setActivePost(post);
+    }
+  }, [postId, posts]);
 
   useEffect(() => {
     async function fetchPosts() {
@@ -68,8 +78,15 @@ const Feed = () => {
     }
   };
 
-  const openModal = (post) => setActivePost(post);
-  const closeModal = () => setActivePost(null);
+  const openModal = (post) => {
+    setActivePost(post);               
+    navigate(`/feed/posts/${post._id}`, { replace: false }); 
+  };
+
+  const closeModal = () => {
+    setActivePost(null);
+    navigate('/feed', { replace: true });
+  };
 
   if (loading) return <div className="feed-container"><div className="loading">Loading posts...</div></div>;
   if (error) return <div className="feed-container"><div className="error">{error}</div></div>;

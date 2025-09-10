@@ -28,6 +28,11 @@ function App() {
               <Feed />
             </RequireAuth>
           }/>
+          <Route path="/feed/posts/:postId" element={
+            <RequireAuth>
+              <Feed />
+            </RequireAuth>
+          }/>
           <Route path="/profile/:username" element={<Profile />}/>
           <Route path="/chat" element={<Chat />} />
           <Route path="*" element={<RootRedirect />} />
