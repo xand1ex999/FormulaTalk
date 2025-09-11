@@ -27,9 +27,9 @@ const PostCard = ({ post, user, onLike, onOpenComments }) => {
         <button className="post-more">⋯</button>
       </div>
 
-      {post.image && (
+      {post.files && post.files.length > 0 && (
         <div className="post-image-container">
-          <img src={post.image} alt="Post content" className="post-image" />
+          <img src={post.files[0]} alt="Post image" className="post-image" />
         </div>
       )}
 

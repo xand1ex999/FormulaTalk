@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 
 const CommentModal = ({ post, user, onClose, onLike, onAddComment }) => {
   const [commentText, setCommentText] = useState('');
+  const [currentPhoto, setCurrentPhoto] = useState(0);
 
   const handleAddComment = async () => {
     if (!commentText.trim()) return;
@@ -20,14 +21,48 @@ const CommentModal = ({ post, user, onClose, onLike, onAddComment }) => {
     }
   };
 
+  const nextPhoto = () => {
+    if (currentPhoto < post.files.length - 1) {
+      setCurrentPhoto((prev) => prev + 1);
+    }
+  };
+
+  const prevPhoto = () => {
+    if (currentPhoto > 0) {
+      setCurrentPhoto((prev) => prev - 1);
+    }
+  };
+
 
   return (
     <div className="comment-modal" onClick={onClose}>
       <div className="comment-modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-left">
-          {post.image ? (
-            <img src={post.image} alt="Post" className="modal-post-image" />
-          ) : <div className="no-image">No image</div>}
+          {post.files && post.files.length > 0 ? (
+            <>
+              <button
+                className={`left-arrow-files ${currentPhoto === 0 ? 'hidden' : 'active'}`}
+                onClick={prevPhoto}
+              >
+                ⬅
+              </button>
+
+              <img
+                src={post.files[currentPhoto]}
+                alt="Post"
+                className="modal-post-image"
+              />
+
+              <button
+                className={`right-arrow-files ${currentPhoto === post.files.length - 1 ? 'hidden' : 'active'}`}
+                onClick={nextPhoto}
+              >
+                ➡
+              </button>
+            </>
+          ) : (
+            <div className="no-image">No image</div>
+          )}
         </div>
 
         <div className="modal-right">

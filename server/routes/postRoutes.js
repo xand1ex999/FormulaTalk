@@ -22,7 +22,7 @@ const upload = multer({ storage });
 const router = express.Router();
 
 router.get('/posts', postController.getAllPosts);
-router.post('/posts', authenticateJWT, upload.single('image'), postController.createPost);
+router.post('/posts', authenticateJWT, upload.array('files', 10), postController.createPost);
 router.get('/posts/:id', postController.getPost);
 router.patch('/posts/:id', authenticateJWT, postController.changeContent);
 router.delete('/posts/:id', authenticateJWT, postController.deletePost);

@@ -38,14 +38,14 @@ class postController {
         return res.status(401).json({ message: 'Unauthorized' });
       }
       const { content } = req.body;
-      let imageUrl = null;
-      if (req.file) {
-        imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
-      }
+      const files = req.files ? req.files.map(f => 
+          `${req.protocol}://${req.get('host')}/uploads/${f.filename}`
+        ) : [];
+    
       const newPost = await Post.create({
         author: req.user.id,
         content,
-        image: imageUrl
+        files
       });
       await newPost.populate([
         { path: 'author', select: 'username avatar' },
