@@ -3,7 +3,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import { useAuth } from '../../context/AuthContext';
 import {useParams, useNavigate } from 'react-router-dom';
-import PostCard from '../../components/PostCard.jsx';
+import PostCard from '../../components/PostCard/PostCard.jsx';
 import CommentModal from '../../components/CommentModal.jsx';
 import './Feed.css';
 import SearchBar from '../../components/SearchBar/SearchBar.jsx';
