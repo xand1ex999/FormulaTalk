@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import Comment from './Comment';
+import Comment from '../Comment/Comment.jsx';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import '../CommentModal/CommentModal.css'
 
 const CommentModal = ({ post, user, onClose, onLike, onAddComment }) => {
   const [commentText, setCommentText] = useState('');

@@ -1,5 +1,5 @@
-import '../pages/Feed/Feed.css';
 import { useNavigate } from 'react-router-dom';
+import '../Comment/Comment.css'
 
 const Comment = ({ comment }) => {
   const navigate = useNavigate();
