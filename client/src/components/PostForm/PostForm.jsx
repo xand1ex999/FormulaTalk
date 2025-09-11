@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./PostForm.css";
 
-const PostForm = ({ user }) => {
+const PostForm = ({ user, onPostCreated }) => {
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null); 
@@ -28,6 +28,11 @@ const PostForm = ({ user }) => {
       setContent("");
       setImage(null);
       setPreview(null);
+      if(onPostCreated){
+        onPostCreated(res.data)
+      }
+      // window.location.reload(); bad solution but still works
+
     } catch (error) {
       console.error("Error creating post:", error);
     }
@@ -60,9 +65,10 @@ const PostForm = ({ user }) => {
         <div className="form-actions">
           <input
             type="file"
-            accept="image/*"
+            accept="image/*, video/*"
             id="fileInput"
             style={{ display: "none" }}
+            multiple
             onChange={handleFileChange}
           />
           <label htmlFor="fileInput" className="media-button">

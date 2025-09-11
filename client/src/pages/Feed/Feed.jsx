@@ -46,6 +46,11 @@ const Feed = () => {
     fetchPosts();
   }, [page]);
 
+  const handlePostCreated = (newPost) => {
+    setPage(1)
+    setPosts(prev => [newPost, ...prev])
+  }
+
  const handleLike = async (postId) => {
     try {
       const res = await axios.post(`/api/posts/${postId}/toggleLike`);
@@ -96,7 +101,7 @@ const Feed = () => {
     <div className="feed-layout">
       <SearchBar />
       <div className='feed-main'>
-        <PostForm user={user}/>
+        <PostForm user={user} onPostCreated={handlePostCreated}/>
       <div className="feed-container">
         <div className="feed">
           {posts.map(post => (

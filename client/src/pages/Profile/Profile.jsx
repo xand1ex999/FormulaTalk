@@ -39,6 +39,23 @@ const Profile = () => {
     fetchProfile();
   }, [username]);
 
+  useEffect(()=>{
+    if(!profileData){
+      return;
+    }
+    async function fetchProfilePosts(){
+      try {
+        const res = await axios.get(`/api/users/${username}/posts`);
+        console.log("posts", res.data);
+      } catch (error) {
+        console.error("Error loading profile posts:", error);
+      }
+    }
+    if(activeTab === 'posts'){
+      fetchProfilePosts();
+    } 
+  },[activeTab, username]);
+
   useEffect(() => {
     console.log("Active tab changed to:", activeTab);
   }, [activeTab]);
@@ -188,34 +205,47 @@ const Profile = () => {
         <button onClick={()=>{setActiveTab('posts')}}>Posts</button>
       </div>
 
-      <div className="detail-card">
-        <h3>About</h3>
-        <div className="detail-item">
-          <span className="detail-label">Bio:</span>
-          <span className="detail-value">
-            {profileData.bio || "No bio yet"}
-          </span>
-        </div>
-      </div>
-
-      <div className="profile-details">
+      {activeTab === 'information' && (
+        <>
         <div className="detail-card">
-          <h3>Contact Information</h3>
+          <h3>About</h3>
           <div className="detail-item">
-            <span className="detail-label">Email:</span>
+            <span className="detail-label">Bio:</span>
             <span className="detail-value">
-              {isOwner ? profileData.email : "Hidden"}
+              {profileData.bio || "No bio yet"}
             </span>
           </div>
         </div>
-      </div>
 
-      {isOwner && (
-        <div className="profile-actions">
-          <button className="edit-btn" onClick={openEditModal}>
-            Edit Profile
-          </button>
+        <div className="profile-details">
+          <div className="detail-card">
+            <h3>Contact Information</h3>
+            <div className="detail-item">
+              <span className="detail-label">Email:</span>
+              <span className="detail-value">
+                {isOwner ? profileData.email : "Hidden"}
+              </span>
+            </div>
+          </div>
         </div>
+
+        {isOwner && (
+          <div className="profile-actions">
+            <button className="edit-btn" onClick={openEditModal}>
+              Edit Profile
+            </button>
+          </div>
+        )}
+        </>
+      )}
+
+      {activeTab === 'posts' && (
+        <>
+        <div className="posts-section">
+          <h2>{profileData.username}'s Posts</h2>
+          <p>Posts will be displayed here.</p>
+        </div>
+        </>
       )}
     </div>
   );
