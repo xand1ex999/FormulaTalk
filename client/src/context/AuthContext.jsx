@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
 
 const AuthContext = createContext(null);
 
@@ -10,6 +10,21 @@ export const AuthProvider = ({children}) => {
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const login = (newToken) => {
+    localStorage.setItem("token", newToken);
+    axios.defaults.headers.common["Authorization"] = `Bearer ${newToken}`;
+    const payload = JSON.parse(atob(newToken.split('.')[1]));
+    setUser({ id: payload.id, username: payload.username });
+    setToken(newToken);
+  }
+
+  const logout = useCallback(() => {
+    localStorage.removeItem("token");
+    delete axios.defaults.headers.common["Authorization"];
+    setUser(null);
+    setToken(null);
+  }, []);
+
   useEffect(()=>{
     const token = localStorage.getItem("token");
     if(!token){ setLoading(false); return; }
@@ -17,7 +32,6 @@ export const AuthProvider = ({children}) => {
       const base64Url = token.split('.')[1];
       const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/'); // JWT fix
       const payload = JSON.parse(atob(base64));
-      console.log(payload);
       if (payload.exp * 1000 > Date.now()) {
         setUser({ 
           id: payload.id, 
@@ -32,22 +46,7 @@ export const AuthProvider = ({children}) => {
       logout(); 
     }
     setLoading(false);
-  },[])
-
-  const login = (newToken) => {
-    localStorage.setItem("token", newToken);
-    axios.defaults.headers.common["Authorization"] = `Bearer ${newToken}`;
-    const payload = JSON.parse(atob(newToken.split('.')[1]));
-    setUser({ id: payload.id, username: payload.username });
-    setToken(newToken);
-  }
-
-  const logout = () =>{
-    localStorage.removeItem("token");
-    delete axios.defaults.headers.common["Authorization"];
-    setToken(null);
-    setUser(null);
-  }
+  },[logout])
 
   const value = {
     user, token, login, logout

@@ -23,4 +23,4 @@ const Pagination = ({ page, totalPages, onPageChange }) => {
   );
 };
 
-export default Pagination;
+export default React.memo(Pagination);

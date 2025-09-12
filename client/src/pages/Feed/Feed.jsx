@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../context/AuthContext';
@@ -13,6 +13,7 @@ import Footer from '../../components/Footer/Footer.jsx';
 
 const Feed = () => {
   const { user } = useAuth();
+  const userId = user?.id;
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -21,8 +22,6 @@ const Feed = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const { postId } = useParams();
-  console.log('Feed render')
-  
 
   useEffect(() => {
     if (postId && posts.length > 0) {
@@ -105,7 +104,7 @@ const Feed = () => {
             <PostCard 
               key={post._id} 
               post={post} 
-              user={user} 
+              userId={userId} 
               onLike={handleLike} 
               onOpenComments={openModal} 
             />
@@ -114,7 +113,7 @@ const Feed = () => {
         {activePost && (
           <CommentModal 
             post={activePost} 
-            userId={user.id} 
+            userId={userId} 
             onClose={closeModal} 
             onLike={handleLike} 
             onAddComment={handleAddComment} 

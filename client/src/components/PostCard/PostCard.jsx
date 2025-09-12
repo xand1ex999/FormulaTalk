@@ -4,8 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import '../PostCard/PostCard.css'
 
-const PostCard = ({ post, user, onLike, onOpenComments }) => {
-  console.log("Rerender logs:", post._id);
+const PostCard = ({ post, userId, onLike, onOpenComments }) => {
   const navigate = useNavigate();
   const [openMenu, setOpenMenu] = useState(false);
 
@@ -22,7 +21,7 @@ const PostCard = ({ post, user, onLike, onOpenComments }) => {
   async function handleDelete(e){
     e.stopPropagation();
     console.log("works");
-    console.log(user.id,"and", post.author._id);
+    console.log(userId,"and", post.author._id);
     try {
       const res = await axios.delete(`/api/posts/${post._id}`, {
         headers: {
@@ -47,7 +46,7 @@ const PostCard = ({ post, user, onLike, onOpenComments }) => {
             <span className="post-time">{formatDate(post.createdAt)}</span>
           </div>
         </div>
-        {user.id === post.author._id && (
+        {userId === post.author._id && (
           <>
           <button 
           className="post-more" 
@@ -69,7 +68,7 @@ const PostCard = ({ post, user, onLike, onOpenComments }) => {
       )}
 
       <div className="post-actions">
-        <button className={`like-btn ${post.likes.includes(user?._id) ? 'liked' : ''}`} onClick={(e) => {e.stopPropagation(); onLike(post._id)}}>❤️</button>
+        <button className={`like-btn ${post.likes.includes(userId) ? 'liked' : ''}`} onClick={(e) => {e.stopPropagation(); onLike(post._id)}}>❤️</button>
         <button className="comment-btn">💬</button>
       </div>
 
@@ -91,17 +90,11 @@ const PostCard = ({ post, user, onLike, onOpenComments }) => {
 };
 
 export default React.memo(PostCard, (prevProps, nextProps) => {
-  const samePost = prevProps.post === nextProps.post;
-  const sameUser = prevProps.user === nextProps.user;
-  const sameOnLike = prevProps.onLike === nextProps.onLike;
-  const sameOnOpen = prevProps.onOpenComments === nextProps.onOpenComments;
-
-  console.log("Ccomparison:", {
-    post: samePost,
-    user: sameUser,
-    onLike: sameOnLike,
-    onOpenComments: sameOnOpen
-  });
-
-  return samePost && sameUser && sameOnLike && sameOnOpen;
+  return prevProps.post === nextProps.post && prevProps.userId === nextProps.userId;
 });
+
+//☝
+// React automatically provides prevProps (last render) and nextProps (current render).
+// If this function returns true → props are "equal" → component skips re-render.
+// If false → component re-renders.
+// Here I compare only `post` and `userId` to prevent unnecessary renders when other props change.
