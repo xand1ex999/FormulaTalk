@@ -23,11 +23,7 @@ const PostCard = ({ post, userId, onLike, onOpenComments, onPostDeleted }) => {
     console.log("works");
     console.log(userId,"and", post.author._id);
     try {
-      const res = await axios.delete(`/api/posts/${post._id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`
-        }
-      });
+      const res = await axios.delete(`/api/posts/${post._id}`);
       onPostDeleted(post._id); 
       toast.success(res.data.message);
     } catch (error) {
@@ -39,9 +35,7 @@ const PostCard = ({ post, userId, onLike, onOpenComments, onPostDeleted }) => {
   async function handleReport(e){
     e.stopPropagation();
     try {
-      const res = await axios.post(`/api/posts/reports/${post._id}`, {
-        Authorization: `Bearer ${localStorage.getItem("token")}`
-      });
+      const res = await axios.post(`/api/posts/reports/${post._id}`);
       setOpenMenu((prev) => !prev)
       toast.success("Successfully reported")
     } catch (error) {
@@ -93,8 +87,8 @@ const PostCard = ({ post, userId, onLike, onOpenComments, onPostDeleted }) => {
       )}
 
       <div className="post-actions">
-        <button className={`like-btn ${post.likes.includes(userId) ? 'liked' : ''}`} onClick={(e) => {e.stopPropagation(); onLike(post._id)}}>❤️</button>
-        <button className="comment-btn">💬</button>
+        <button title='Like' className={`like-btn ${post.likes.includes(userId) ? 'liked' : ''}`} onClick={(e) => {e.stopPropagation(); onLike(post._id)}}>❤️</button>
+        <button title='Comment' className="comment-btn">💬</button>
       </div>
 
       {post.likes.length > 0 && (

@@ -102,11 +102,13 @@
   height: 40px;
   border-radius: 50%;
   margin-right: 8px;
+  cursor: pointer;
 }
 
 .modal-header .author-username {
   font-weight: bold;
   flex-grow: 1;
+  cursor: pointer;
 }
 
 .close-modal {
@@ -121,13 +123,15 @@
 .modal-post-content {
   margin-top: -10px;
   margin-bottom: 12px;
+  padding-bottom: 7px;
   margin-left: 4px;
   border-bottom: 1px solid #eee;
 }
 
 .modal-post-content .author-username {
   font-weight: bold;
-  margin-right: 6px;
+  margin-right: 10px;
+  margin-left: 7px;
 }
 
 .modal-post-content .author-description {

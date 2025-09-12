@@ -21,11 +21,7 @@ const PostForm = ({ onPostCreated }) => {
     files.forEach(file => formData.append("files", file));
 
     try {
-      const res = await axios.post("/api/posts", formData, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const res = await axios.post("/api/posts", formData);
       console.log("Post created:", res.data);
       toast.success("Post created")
       setContent("");

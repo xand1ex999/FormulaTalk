@@ -1,14 +1,11 @@
 .comment {
   display: flex;
+  position: relative;
   gap: 4px;
   margin-bottom: 4px;
   font-size: 14px;
   cursor: pointer;
-}
-
-.comment-author {
-  font-weight: 600;
-  color: #262626;
+  align-items: center;   
 }
 
 .comment-avatar {
@@ -19,10 +16,52 @@
   object-fit: cover;
 }
 
+.comment-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1; 
+}
+
+.comment-author {
+  font-weight: 600;
+  color: #262626;
+  margin-left: 4px;
+}
+
 .comment-text {
   color: #262626;
   word-break: break-word;   
   white-space: pre-wrap;     
   flex: 1;  
-  margin-left: 10px;      
+  margin-left: 4px;
+  margin-bottom: 2px;  
+ 
+}
+
+.comment-actions {
+  font-weight: bold;
+  margin-left: auto; 
+  padding-right: 4px;
+  color: #262626;
+}
+
+.comment-options button {
+  font-family: 'Titillium Web', sans-serif;
+  background: transparent;
+  border: 1px solid #5e5c5c;
+  border-radius: 10px;
+  color: #5e5c5c;
+  font-weight: 500;
+  margin-right: 6px;
+  padding: 4px 8px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.comment-options button:hover {
+  background: #e10600; 
+  color: #fff;
+  border-radius: 10px;
+  transform: translateX(4px);
 }

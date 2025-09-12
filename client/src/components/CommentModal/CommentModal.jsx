@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Comment from '../Comment/Comment.jsx';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import '../CommentModal/CommentModal.css'
 
-const CommentModal = ({ post, userId, onClose, onLike, onAddComment }) => {
+const CommentModal = ({ post, userId, onClose, onLike, onAddComment, handleDeleteComment }) => {
   const [commentText, setCommentText] = useState('');
   const [currentPhoto, setCurrentPhoto] = useState(0);  
+  const navigate = useNavigate();
 
   const handleAddComment = async () => {
     if (!commentText.trim()) return;
@@ -69,7 +71,7 @@ const CommentModal = ({ post, userId, onClose, onLike, onAddComment }) => {
         <div className="modal-right">
           <div className="modal-header">
             <img src={post.author.avatar || `https://ui-avatars.com/api/?name=${post.author.username}&background=random`} 
-                 alt={post.author.username} className="author-avatar" />
+                 alt={post.author.username} className="author-avatar" onClick={()=>{navigate(`/profile/${post.author.username}`)}} />
             <span className="author-username">{post.author.username}</span>
             <button className="close-modal" onClick={onClose}>×</button>
           </div>
@@ -80,12 +82,12 @@ const CommentModal = ({ post, userId, onClose, onLike, onAddComment }) => {
           </div>
 
           <div className="modal-comments">
-            {post.comments.length > 0 ? post.comments.map((c, idx) => <Comment key={idx} comment={c} />) :
+            {post.comments.length > 0 ? post.comments.map((c, idx) => <Comment key={c._id} comment={c} handleDeleteComment={(commentId) => handleDeleteComment(post._id, commentId)}  />) :
             <p className="no-comments">No comments yet.</p>}
           </div>
 
           <div className="modal-actions">
-            <button className={`like-btn ${post.likes.includes(userId) ? 'liked' : ''}`} onClick={() => onLike(post._id)}>❤️</button>
+            <button title='Like' className={`like-btn ${post.likes.includes(userId) ? 'liked' : ''}`} onClick={() => onLike(post._id)}>❤️</button>
             <span>{post.likes.length} like{post.likes.length !== 1 ? 's' : ''}</span>
           </div>
 
