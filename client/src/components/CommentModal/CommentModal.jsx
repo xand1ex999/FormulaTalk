@@ -4,9 +4,9 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import '../CommentModal/CommentModal.css'
 
-const CommentModal = ({ post, user, onClose, onLike, onAddComment }) => {
+const CommentModal = ({ post, userId, onClose, onLike, onAddComment }) => {
   const [commentText, setCommentText] = useState('');
-  const [currentPhoto, setCurrentPhoto] = useState(0);
+  const [currentPhoto, setCurrentPhoto] = useState(0);  
 
   const handleAddComment = async () => {
     if (!commentText.trim()) return;
@@ -85,7 +85,7 @@ const CommentModal = ({ post, user, onClose, onLike, onAddComment }) => {
           </div>
 
           <div className="modal-actions">
-            <button className={`like-btn ${post.likes.includes(user?._id) ? 'liked' : ''}`} onClick={() => onLike(post._id)}>❤️</button>
+            <button className={`like-btn ${post.likes.includes(userId) ? 'liked' : ''}`} onClick={() => onLike(post._id)}>❤️</button>
             <span>{post.likes.length} like{post.likes.length !== 1 ? 's' : ''}</span>
           </div>
 

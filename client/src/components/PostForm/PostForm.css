@@ -4,13 +4,11 @@
   border-radius: 12px;
   padding: 16px;
   margin: 20px 0;
-  width: 100%;           /* форма занимает всю ширину feed-container */
-  max-width: 600px;      /* и сама ограничена */
+  width: 100%;           
+  max-width: 600px;      
   box-shadow: 0 1px 3px rgba(255, 255, 255, 0.5); 
   font-family: 'Titillium Web', sans-serif;
 }
-
-
 
 .post-form textarea {
   width: 100%;

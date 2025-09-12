@@ -1,12 +1,13 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import '../PostCard/PostCard.css'
 
 const PostCard = ({ post, user, onLike, onOpenComments }) => {
+  console.log("Rerender logs:", post._id);
   const navigate = useNavigate();
-  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
 
 
   const formatDate = (dateString) => {
@@ -50,10 +51,11 @@ const PostCard = ({ post, user, onLike, onOpenComments }) => {
           <>
           <button 
           className="post-more" 
-          onClick={(e)=>{ e.stopPropagation(); setOpenDeleteModal(true) }}>⋯</button>
-          {openDeleteModal && (
-            <div>
+          onClick={(e)=>{ e.stopPropagation(); setOpenMenu(prev => !prev) }}>⋯</button>
+          {openMenu && (
+            <div className='post-menu'>
               <button>Delete Post</button>
+              <button onClick={(e)=>{e.stopPropagation(); toast.success("Successfully reported")}}>Report</button>
             </div>
           )}
           </>
@@ -84,9 +86,22 @@ const PostCard = ({ post, user, onLike, onOpenComments }) => {
           View {post.comments.length === 1 ? '1 comment' : `all ${post.comments.length} comments`}
         </div>
       )}
-      <ToastContainer position="top-right" autoClose={2000} hideProgressBar={false} theme="dark"/>
     </div>
   );
 };
 
-export default PostCard;
+export default React.memo(PostCard, (prevProps, nextProps) => {
+  const samePost = prevProps.post === nextProps.post;
+  const sameUser = prevProps.user === nextProps.user;
+  const sameOnLike = prevProps.onLike === nextProps.onLike;
+  const sameOnOpen = prevProps.onOpenComments === nextProps.onOpenComments;
+
+  console.log("Ccomparison:", {
+    post: samePost,
+    user: sameUser,
+    onLike: sameOnLike,
+    onOpenComments: sameOnOpen
+  });
+
+  return samePost && sameUser && sameOnLike && sameOnOpen;
+});

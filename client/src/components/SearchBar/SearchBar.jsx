@@ -1,13 +1,14 @@
-import React, { useState } from 'react'
+import React, { memo, useState } from 'react'
 import axios from 'axios';
 import { useEffect } from 'react';
 import './SearchBar.css';
 import { useNavigate } from 'react-router-dom';
 
-const SearchBar = () => {
+const SearchBar = memo(() => {
   const [query, setQuery] = useState('');
   const [usersFound, setUsersFound] = useState([]);
   const navigate = useNavigate();
+  console.log('SearchBar render')
 
   useEffect(() => {
     async function searchUsers(){
@@ -43,6 +44,6 @@ const SearchBar = () => {
     </div>
     </>
   )
-}
+});
 
 export default SearchBar

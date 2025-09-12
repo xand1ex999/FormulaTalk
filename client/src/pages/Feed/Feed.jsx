@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useAuth } from '../../context/AuthContext';
 import {useParams, useNavigate } from 'react-router-dom';
 import PostCard from '../../components/PostCard/PostCard.jsx';
@@ -21,6 +21,8 @@ const Feed = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const { postId } = useParams();
+  console.log('Feed render')
+  
 
   useEffect(() => {
     if (postId && posts.length > 0) {
@@ -36,6 +38,7 @@ const Feed = () => {
         const res = await axios.get(`/api/posts?page=${page}`);
         setPosts(res.data.posts);
         setTotalPages(res.data.totalPages);
+        navigate(`?page=${page}`);
       } catch (err) {
         console.error(err);
         setError('Failed to load posts');
@@ -44,54 +47,48 @@ const Feed = () => {
       }
     }
     fetchPosts();
-  }, [page]);
+  }, [page, navigate]);
 
-  const handlePostCreated = (newPost) => {
+  const handlePostCreated = useCallback((newPost) => {
     setPage(1)
     setPosts(prev => [newPost, ...prev])
-  }
+  },[]);
 
- const handleLike = async (postId) => {
+ const handleLike = useCallback(async (postId) => {
     try {
       const res = await axios.post(`/api/posts/${postId}/toggleLike`);
-      const updatedPost = { ...posts.find(p => p._id === postId), likes: res.data.likes };
-      setPosts(posts.map(post => post._id === postId ? updatedPost : post)); //update the specific post in the list (if _id === postId, change it to updatedPost, else keep it the same)
-
-      if (activePost && activePost._id === postId) {
-        setActivePost(updatedPost);
-      }
+      const likes = res.data.likes
+      setPosts(prev => prev.map(p => p._id === postId ? {...p, likes} : p))
+      setActivePost(prev => prev && prev._id === postId ? {...prev, likes} : prev)
       toast.success(res.data.message);
     } catch (err) {
       console.error(err);
       toast.error('Failed to like post');
     }
-  };
+  },[]);
 
 
-  const handleAddComment = (postId, newComment) => {
+  const handleAddComment = useCallback((postId, newComment) => {
     console.log('Adding comment to post:', postId, newComment);
-    console.log("Posts:", posts);
     setPosts(prev => prev.map(p => p._id === postId ? {...p, comments: [...p.comments, newComment]} : p));
-    if (activePost && activePost._id === postId) {
-      setActivePost({...activePost, comments: [...activePost.comments, newComment]});
-    }
-  };
+    setActivePost(prev => prev && prev._id === postId ? { ...prev, comments: [...prev.comments, newComment] } : prev);
+  },[]);
 
-  const handlePageChange = (newPage) => {
+  const handlePageChange = useCallback((newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
       setPage(newPage);
     }
-  };
+  },[totalPages]);
 
-  const openModal = (post) => {
+  const openModal = useCallback((post) => {
     setActivePost(post);               
     navigate(`/feed/posts/${post._id}`, { replace: false }); 
-  };
+  },[navigate]);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setActivePost(null);
     navigate('/feed', { replace: true });
-  };
+  },[navigate]);
 
   if (loading) return <div className="feed-container"><div className="loading">Loading posts...</div></div>;
   if (error) return <div className="feed-container"><div className="error">{error}</div></div>;
@@ -101,7 +98,7 @@ const Feed = () => {
     <div className="feed-layout">
       <SearchBar />
       <div className='feed-main'>
-        <PostForm user={user} onPostCreated={handlePostCreated}/>
+        <PostForm onPostCreated={handlePostCreated}/>
       <div className="feed-container">
         <div className="feed">
           {posts.map(post => (
@@ -117,13 +114,12 @@ const Feed = () => {
         {activePost && (
           <CommentModal 
             post={activePost} 
-            user={user} 
+            userId={user.id} 
             onClose={closeModal} 
             onLike={handleLike} 
             onAddComment={handleAddComment} 
           />
         )}
-        <ToastContainer position="top-right" autoClose={2000} hideProgressBar={false} theme="dark"/>
       </div>
       <Pagination page={page} totalPages={totalPages} onPageChange={handlePageChange} />
       </div>

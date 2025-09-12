@@ -19,6 +19,16 @@ function App() {
   return (
     <AuthProvider>
       <Router>
+          <ToastContainer
+          position="top-right"
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          pauseOnHover
+          draggable
+          theme="dark"
+        />
         <Header/>
         <Routes>
           <Route path="/" element={<RootRedirect />} />
@@ -38,16 +48,6 @@ function App() {
           <Route path="*" element={<RootRedirect />} />
         </Routes>
       </Router>
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick
-        pauseOnHover
-        draggable
-        theme="dark"
-      />
     </AuthProvider>
   );
 }

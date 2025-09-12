@@ -2,8 +2,7 @@ import { useState } from 'react';
 import registerPic from '../../assets/registerPic.jpg';
 import { replace, useNavigate, Navigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import './AuthPage.css';
 import axios from 'axios';
 
@@ -105,16 +104,6 @@ export default function AuthPage() {
         {error && <p className="error-message">{error}</p>}
       </div>
     </div>
-      <ToastContainer
-      position="top-right"
-      autoClose={3000}
-      hideProgressBar={false}
-      newestOnTop={false}
-      closeOnClick
-      pauseOnHover
-      draggable
-      theme="dark"
-    />
     </>
   );
 }

@@ -121,3 +121,10 @@
   margin: -5px 0px 8px 15px;
   cursor: pointer;
 }
+
+
+/* Post Menu */
+
+.post_menu{
+  display: flex;
+}

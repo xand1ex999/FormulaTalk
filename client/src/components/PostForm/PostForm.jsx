@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./PostForm.css";
 
-const PostForm = ({ user, onPostCreated }) => {
+const PostForm = ({ onPostCreated }) => {
   const [content, setContent] = useState("");
   const [files, setFiles] = useState([]);
   const [previews, setPreviews] = useState([]);
+  console.log('PostForm render')
 
   async function createPost(e) {
     e.preventDefault();
