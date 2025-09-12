@@ -1,6 +1,8 @@
+import { sendLoginMail, sendRegisterMail } from '../utils/mailer.js';
 import User from '../models/User.js';
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
+
 
 class authController{
 
@@ -23,12 +25,13 @@ class authController{
     const createdUser = await User.create({ username, email, password: hashedPassword });
     const user = createdUser.toObject();
     delete user.password;
-    console.log("Successfully registered");
     const token = jwt.sign(
       { id: user._id, username: user.username },  
       process.env.JWT_SECRET,                  
       { expiresIn: "24h" }                       
     );
+    sendRegisterMail(user, req).catch(console.error);
+    console.log("Successfully registered");
     res.json({token, user});
     } catch (error) {
       console.error('Error in registerController:', error);
@@ -37,7 +40,8 @@ class authController{
   }
 
   async loginUser(req, res){
-    const {email, password} = req.body;
+    try {
+          const {email, password} = req.body;
     if(!email){
       throw new Error('No email provided')
     } else if (!password){
@@ -51,14 +55,18 @@ class authController{
     if(!isPasswordCorrect){
       return res.status(401).json({message: 'Invalid credentials'})
     }
-    console.log('Login successful!');
     const token = jwt.sign(
       { id: user._id, username: user.username },  
       process.env.JWT_SECRET,                  
       { expiresIn: "24h" }                       
     );
-
+    sendLoginMail(user, req).catch(console.error);
+    console.log('Login successful!');
     res.json({ token, user: { username: user.username, email: user.email } });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Login failed" });
+    }
   }
 }
 

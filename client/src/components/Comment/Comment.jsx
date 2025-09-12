@@ -32,7 +32,7 @@ const Comment = ({ comment, handleDeleteComment }) => {
       />
       <div className="comment-content">
         <span className="comment-author">{comment.author.username}</span>
-        <span className="comment-text">{comment.text}</span>
+        <span className="comment-text" onClick={e => e.stopPropagation()}>{comment.text}</span>
       </div>
       <div title='More options' className='comment-actions' onClick={handleOptions}>...</div>
     </div>
