@@ -3,11 +3,14 @@ import { useAuth } from '../../context/AuthContext'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import './Profile.css' 
+import CommentModal from '../../components/CommentModal/CommentModal.jsx'
 
 const Profile = () => {
   const { username } = useParams();
   const { user } = useAuth();
   const [profileData, setProfileData] = useState(null);
+  const [profilePosts, setProfilePosts] = useState([]);
+  const [selectedPost, setSelectedPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -24,7 +27,6 @@ const Profile = () => {
         setLoading(true);
         const res = await axios.get(`/api/users/${username}`);
         setProfileData(res.data);
-        console.log("Loaded profile:", res.data);
         setEditForm({
           bio: res.data.bio || '',
           avatar: res.data.avatar || ''
@@ -46,7 +48,7 @@ const Profile = () => {
     async function fetchProfilePosts(){
       try {
         const res = await axios.get(`/api/users/${username}/posts`);
-        console.log("posts", res.data);
+        setProfilePosts(res.data)
       } catch (error) {
         console.error("Error loading profile posts:", error);
       }
@@ -55,11 +57,6 @@ const Profile = () => {
       fetchProfilePosts();
     } 
   },[activeTab, username]);
-
-  useEffect(() => {
-    console.log("Active tab changed to:", activeTab);
-  }, [activeTab]);
-
 
   const openEditModal = () => {
     setIsEditModalOpen(true);
@@ -205,6 +202,7 @@ const Profile = () => {
         <button onClick={()=>{setActiveTab('posts')}}>Posts</button>
       </div>
 
+      {/* Information profile content */}
       {activeTab === 'information' && (
         <>
         <div className="detail-card">
@@ -239,13 +237,41 @@ const Profile = () => {
         </>
       )}
 
+      {/* Posts profile content */}
       {activeTab === 'posts' && (
-        <>
         <div className="posts-section">
           <h2>{profileData.username}'s Posts</h2>
-          <p>Posts will be displayed here.</p>
+          {profilePosts && profilePosts.length > 0 ? (
+            <div className="posts-grid">
+              {profilePosts.map((post) => (
+                <div 
+                  key={post._id} 
+                  className="post-item"
+                  onClick={() => setSelectedPost(post)}
+                >
+                  {post.files && post.files.length > 0 ? (
+                    <img src={post.files[0]} alt="Post preview" />
+                  ) : (
+                    <div className="no-image"><p>There is a text post</p></div>
+                  )}
+
+                  <div className="overlay">
+                    <span>❤️ {post.likes.length}</span>
+                    <span>💬 {post.comments.length}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p>No posts yet.</p>
+          )}
         </div>
-        </>
+      )}
+      {selectedPost && (
+        <CommentModal 
+          post={selectedPost} 
+          onClose={() => setSelectedPost(null)} 
+        />
       )}
     </div>
   );
