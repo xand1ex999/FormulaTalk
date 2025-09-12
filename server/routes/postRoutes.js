@@ -21,6 +21,11 @@ const upload = multer({ storage });
 
 const router = express.Router();
 
+//reports
+router.get('/posts/reports/', postController.getAllReports);
+router.post('/posts/reports/:id', authenticateJWT, postController.createReport);
+
+//posts
 router.get('/posts', postController.getAllPosts);
 router.post('/posts', authenticateJWT, upload.array('files', 10), postController.createPost);
 router.get('/posts/:id', postController.getPost);

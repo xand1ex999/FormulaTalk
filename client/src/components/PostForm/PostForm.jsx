@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./PostForm.css";
+import { toast } from "react-toastify";
 
 const PostForm = ({ onPostCreated }) => {
   const [content, setContent] = useState("");
@@ -13,6 +14,10 @@ const PostForm = ({ onPostCreated }) => {
 
     const formData = new FormData();
     formData.append("content", content);
+    if(files.length > 10 ){
+      toast.error('Maximum amount of 10 pictures')
+      return;
+    }
     files.forEach(file => formData.append("files", file));
 
     try {
@@ -22,6 +27,7 @@ const PostForm = ({ onPostCreated }) => {
         },
       });
       console.log("Post created:", res.data);
+      toast.success("Post created")
       setContent("");
       setFiles([]);
       previews.forEach(p => URL.revokeObjectURL(p)); 

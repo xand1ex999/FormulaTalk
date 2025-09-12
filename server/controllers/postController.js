@@ -1,4 +1,5 @@
 import Post from "../models/Post.js";
+import Report from "../models/Report.js";
 import mongoose from 'mongoose';
 
 class postController {
@@ -137,6 +138,57 @@ class postController {
       res.status(500).json({ message: 'Server error' });
     }
   }
+
+  async createReport(req, res) {
+    try {
+      if (!req.user) {
+        return res.status(401).json({ message: 'Unauthorized' });
+      }
+      const { id } = req.params; 
+      if (!id) {
+        return res.status(400).json({ message: 'No post id provided' });
+      }
+      const post = await Post.findById(id);
+      if (!post) {
+        return res.status(404).json({ message: 'Post not found' });
+      }
+      const existing = await Report.findOne({
+        reportedPost: id,
+        reporter: req.user.id
+      });
+      if (existing) {
+        return res.status(400).json({ message: 'You already reported this post' });
+      }
+      const reported = await Report.create({
+        reportedPost: id,
+        reporter: req.user.id
+      });
+      await reported.populate([
+        { path: 'reportedPost', select: 'content author createdAt' },
+        { path: 'reporter', select: 'username avatar' }
+      ]);
+      res.status(201).json(reported);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  }
+
+
+  async getAllReports(req, res) {
+    try {
+      const reports = await Report.find()
+        .populate({ path: 'reportedPost', select: 'content author createdAt' })
+        .populate({ path: 'reporter', select: 'username avatar' })
+        .sort({ createdAt: -1 });
+
+      res.status(200).json(reports);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  }
+
 }
 
 export default new postController();

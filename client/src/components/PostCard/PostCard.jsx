@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import '../PostCard/PostCard.css'
 
-const PostCard = ({ post, userId, onLike, onOpenComments }) => {
+const PostCard = ({ post, userId, onLike, onOpenComments, onPostDeleted }) => {
   const navigate = useNavigate();
   const [openMenu, setOpenMenu] = useState(false);
 
@@ -28,11 +28,26 @@ const PostCard = ({ post, userId, onLike, onOpenComments }) => {
           Authorization: `Bearer ${localStorage.getItem("token")}`
         }
       });
+      onPostDeleted(post._id); 
       toast.success(res.data.message);
     } catch (error) {
       console.error("Error", error)
       toast.error('Failed to delete post');
     } 
+  }
+
+  async function handleReport(e){
+    e.stopPropagation();
+    try {
+      const res = await axios.post(`/api/posts/reports/${post._id}`, {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      });
+      setOpenMenu((prev) => !prev)
+      toast.success("Successfully reported")
+    } catch (error) {
+      console.error("Error", error)
+      toast.error('Failed to report post');
+    }
   }
 
   return (
@@ -47,17 +62,27 @@ const PostCard = ({ post, userId, onLike, onOpenComments }) => {
           </div>
         </div>
         {userId === post.author._id && (
-          <>
-          <button 
-          className="post-more" 
-          onClick={(e)=>{ e.stopPropagation(); setOpenMenu(prev => !prev) }}>⋯</button>
-          {openMenu && (
-            <div className='post-menu'>
-              <button>Delete Post</button>
-              <button onClick={(e)=>{e.stopPropagation(); toast.success("Successfully reported")}}>Report</button>
-            </div>
-          )}
-          </>
+          <div className="relative">
+            <button
+              className="post-more"
+              onClick={(e) => {
+                e.stopPropagation();
+                setOpenMenu((prev) => !prev);
+              }}
+            >
+              ⋯
+            </button>
+
+            {openMenu && (
+              <div
+                className="post-menu"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button onClick={handleDelete}>🗑 Delete Post</button>
+                <button onClick={handleReport}>🚩 Report</button>
+              </div>
+            )}
+          </div>
         )}
       </div>
 

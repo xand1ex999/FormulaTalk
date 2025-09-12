@@ -53,6 +53,10 @@ const Feed = () => {
     setPosts(prev => [newPost, ...prev])
   },[]);
 
+  const handlePostDeleted = useCallback((deletedPostId) => {
+    setPosts(prev => prev.filter(p => p._id !== deletedPostId));
+  }, []);
+  
  const handleLike = useCallback(async (postId) => {
     try {
       const res = await axios.post(`/api/posts/${postId}/toggleLike`);
@@ -107,6 +111,7 @@ const Feed = () => {
               userId={userId} 
               onLike={handleLike} 
               onOpenComments={openModal} 
+              onPostDeleted={handlePostDeleted}
             />
           ))}
         </div>

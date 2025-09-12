@@ -12,6 +12,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 12px 16px;
+  position: relative;
 }
 
 .post-author {
@@ -124,7 +125,47 @@
 
 
 /* Post Menu */
-
-.post_menu{
+.post-menu {
+  position: absolute;
+  top: 100%;       
+  right: 0;        
+  margin-top: 6px;
+  background: white;
+  border: 1px solid #dbdbdb;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 10;
   display: flex;
+  flex-direction: column;
+  min-width: 160px;
+  animation: fadeIn 0.2s ease-out;
 }
+
+.post-menu button {
+  background: none;
+  border: none;
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+  color: #262626;
+  transition: background 0.2s;
+}
+
+.post-menu button:hover {
+  border-radius: 10px;
+  background: #ecebeb;
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
