@@ -11,6 +11,7 @@ import SearchBar from '../../components/SearchBar/SearchBar.jsx';
 import PostForm from '../../components/PostForm/PostForm.jsx';
 import Pagination from '../../components/Pagination/Pagination.jsx';
 import Footer from '../../components/Footer/Footer.jsx';
+import LeaderBoard from '../../components/LeaderBoard/LeaderBoard.jsx';
 
 const Feed = () => {
   const { user } = useAuth();
@@ -119,6 +120,7 @@ const Feed = () => {
       <div className='feed-main'>
         <PostForm onPostCreated={handlePostCreated}/>
       <div className="feed-container">
+        <LeaderBoard/>
         <div className="feed">
           {posts.map(post => (
             <PostCard 

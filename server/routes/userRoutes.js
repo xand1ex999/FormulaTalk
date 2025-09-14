@@ -1,11 +1,15 @@
 import express from 'express';
 import { authenticateJWT } from '../middlewares/authMiddleware.js';
 import userController from '../controllers/userController.js'
+import leaderboardController from '../controllers/leaderboardController.js';
 
 const router = express.Router();
 
 //user search
 router.get("/", userController.searchUsers);
+
+//leaderbord
+router.get('/leaderboard', leaderboardController.getLeaders)
 
 //profile related
 router.get('/:username', authenticateJWT, userController.getProfile)

@@ -16,11 +16,11 @@ class likeController{
       let action = '';
       if (post.likes.includes(userId)) {
         post.likes = post.likes.filter(likeId => likeId.toString() !== userId);
-        user.points--;
+        user.points = user.points - 5;
         action = 'unliked';
       } else {
         post.likes.push(userId);
-        user.points++;
+        user.points = user.points + 5;
         action = 'liked';
       }
       await post.save();

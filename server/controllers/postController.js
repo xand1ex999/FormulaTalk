@@ -53,7 +53,7 @@ class postController {
         { path: 'comments.author', select: 'username avatar' }
       ]);
       const user = await User.findById(req.user.id)
-      user.points++;
+      user.points = user.points + 10;
       await updateUserRank(user)
       console.log(user);
       res.status(201).json(newPost);
