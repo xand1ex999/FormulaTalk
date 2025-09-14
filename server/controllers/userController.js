@@ -23,15 +23,15 @@ class userController{
   //profile related
   async getProfile(req, res){
     try {
-      const user = await User.findOne({ username: req.params.username }).select("-password ").select("username avatar");
+      const user = await User.findOne({ username: req.params.username }).select("-password ").select("username bio createdAt avatar rank favoriteDriver favoriteTeam");
       if(!user){
         return res.status(404).json({message: 'User not found'})
       }
       if(req.user && req.user.username === req.params.username){
         return res.json(user)
       }
-      const { username, bio, createdAt, avatar } = user;
-      res.json({ username, bio, createdAt, avatar });
+      const { username, bio, createdAt, avatar, rank, favoriteDriver, favoriteTeam } = user;
+      res.json({ username, bio, createdAt, avatar, rank, favoriteDriver, favoriteTeam });
     } catch (error) {
       console.error(error);
       res.status(500).json({message: "Server error"})

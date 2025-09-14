@@ -87,21 +87,21 @@ const PostCard = ({ post, userId, onLike, onOpenComments, onPostDeleted }) => {
       )}
 
       <div className="post-actions">
-        <button title='Like' className={`like-btn ${post.likes.includes(userId) ? 'liked' : ''}`} onClick={(e) => {e.stopPropagation(); onLike(post._id)}}>❤️</button>
-        <button title='Comment' className="comment-btn">💬</button>
+        <button title='Like' className={`like-btn ${post.likes.includes(userId) ? 'liked' : ''}`} onClick={(e) => {e.stopPropagation(); onLike(post._id)}}>🏎️</button>
+        <button title='Comment' className="comment-btn">🏁</button>
       </div>
 
       {post.likes.length > 0 && (
-        <div className="post-likes">{post.likes.length} like{post.likes.length !== 1 ? 's' : ''}</div>
+        <div className="post-likes">{post.likes.length} pit stop{post.likes.length !== 1 ? 's' : ''}</div>
       )}
 
-      <div className="post-content">
+      <div className="post-content" onClick={e => e.stopPropagation()}>
         <span className="author-username">{post.author.username}</span>
         <span className="post-text">{post.content}</span>
       </div>
       {post.comments.length > 0 && (
         <div className="post-comments-preview">
-          View {post.comments.length === 1 ? '1 comment' : `all ${post.comments.length} comments`}
+          View {post.comments.length === 1 ? '1 radio message' : `all ${post.comments.length} radio messages`}
         </div>
       )}
     </div>

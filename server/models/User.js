@@ -27,6 +27,20 @@ const UserSchema  = new mongoose.Schema({
   },
   avatar: {
     type: String
+  },
+  rank: { 
+    type: String,
+    enum: ['Rookie', 'Pro', 'Champion'], default: 'Rookie' 
+  },
+  points: {
+    type: Number,
+    default: 0
+  },
+  favoriteDriver: {
+    type: String, default: '' 
+  },
+  favoriteTeam: {
+    type: String, default: '' 
   }
 }, { timestamps: true });
 

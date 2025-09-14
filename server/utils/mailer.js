@@ -15,7 +15,7 @@ function baseTemplate(title, body) {
   return `
   <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;">
     <div style="background: #e10600; color: #fff; padding: 16px; text-align: center;">
-      <h2 style="margin: 0;">🏎️ F1 Forum</h2>
+      <h2 style="margin: 0;">© 2025 FormulaTalk</h2>
     </div>
     <div style="padding: 20px; background: #fafafa;">
       <h3 style="color: #333;">${title}</h3>

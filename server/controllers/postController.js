@@ -1,6 +1,8 @@
 import Post from "../models/Post.js";
 import Report from "../models/Report.js";
 import mongoose from 'mongoose';
+import updateUserRank from "../utils/updateUserRank.js";
+import User from "../models/User.js";
 
 class postController {
 
@@ -17,8 +19,6 @@ class postController {
       { path: 'author', select: 'username avatar' },
       { path: 'comments.author', select: 'username avatar' }
     ]);
-
-
     const totalPosts = await Post.countDocuments();
     const totalPages = Math.ceil(totalPosts / limit);
       res.status(200).json({
@@ -52,6 +52,10 @@ class postController {
         { path: 'author', select: 'username avatar' },
         { path: 'comments.author', select: 'username avatar' }
       ]);
+      const user = await User.findById(req.user.id)
+      user.points++;
+      await updateUserRank(user)
+      console.log(user);
       res.status(201).json(newPost);
     } catch (error) {
       console.error(error);

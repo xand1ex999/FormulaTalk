@@ -1,26 +1,51 @@
 .post-form {
-  background: #0d0d0d;
-  border: 2px solid #806579; 
+  background: #1c1c1e;
+  border: 1px solid #2e2e3f;
   border-radius: 12px;
   padding: 16px;
   margin: 20px 0;
-  width: 100%;           
-  max-width: 600px;      
-  box-shadow: 0 1px 3px rgba(255, 255, 255, 0.5); 
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   font-family: 'Titillium Web', sans-serif;
+  background-image: linear-gradient(
+      to bottom,
+      rgba(28, 28, 30, 0.9), 
+      rgba(28, 28, 30, 0.8) 40%,
+      rgba(44, 38, 64, 0.5) 100%
+    ),
+    repeating-linear-gradient(
+      45deg,
+      #1f1b2e,
+      #1f1b2e 8px,
+      #2c2640 8px,
+      #2c2640 16px
+    );
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border 0.2s ease;
+}
+
+.post-form:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(125, 77, 255, 0.25);
 }
 
 .post-form textarea {
   width: 100%;
-  min-height: 55px;
-  border: none;
+  min-height: 60px;
+  border: 1px solid #3a3a4a;
   border-radius: 8px;
   padding: 12px;
   resize: none;
   outline: none;
   font-size: 14px;
-  background: #1a1a1a;
-  color: white;
+  background: #1c1c1e;
+  color: #f5f5f5;
+  transition: box-shadow 0.3s ease, border 0.3s ease;
+}
+
+.post-form textarea:focus {
+  border-color: #8170ad;
+  box-shadow: 0 0 10px rgba(125, 77, 255, 0.4);
 }
 
 .image-preview {
@@ -32,57 +57,66 @@
 .image-preview img {
   max-width: 100%;
   border-radius: 8px;
-  border: 2px solid #806579; 
+  border: 1px solid #8170ad;
   display: block;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.image-preview img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 15px rgba(125, 77, 255, 0.4);
 }
 
 .form-actions {
-  margin-top: 12px;
+  margin-top: 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 12px;
 }
 
 .media-button {
   background: none;
-  border: 2px solid #806579; 
-  color: #806579; 
+  border: 1px solid #8170ad;
+  color: #8170ad;
   padding: 6px 14px;
   border-radius: 20px;
   cursor: pointer;
   font-weight: bold;
-  transition: 0.3s;
+  transition: all 0.3s ease;
 }
 
 .media-button:hover {
-  background: #e10600;
-  color: white;
+  background: #8170ad;
+  color: #1c1c1e;
+  transform: translateX(4px);
 }
 
 .submit-button {
   font-family: 'Titillium Web', sans-serif;
-  background: #e10600;
-  border: 1px solid #806579;
-  color: white;
-  padding: 8px 40px;
-  border-radius: 20px;
+  background: linear-gradient(135deg, #8170ad, #2e2e3f);
+  border: none;
+  color: #f5f5f5;
+  padding: 10px 42px;
+  border-radius: 25px;
   cursor: pointer;
   font-weight: bold;
-  transition: 0.3s;
+  transition: all 0.3s ease;
 }
 
 .submit-button:hover {
-  background: #ff1c10;
+  background: #9a4dff;
+  box-shadow: 0 0 12px rgba(125, 77, 255, 0.4);
+  transform: translateY(-2px);
 }
-
 
 .close-image-preview {
   position: absolute;
-  top: 10px;    
-  left: 10px;   
-  border: 2px solid #806579;
-  color: #806579;
-  background: rgba(0, 0, 0, 0.5); 
+  top: 10px;
+  left: 10px;
+  border: none;
+  color: #f5f5f5;
+  background: rgba(125, 77, 255, 0.8);
   padding: 4px 10px;
   border-radius: 20px;
   cursor: pointer;
@@ -92,6 +126,6 @@
 }
 
 .close-image-preview:hover {
-  background: #e10600;
-  color: white;
+  background: #9a4dff;
+  transform: scale(1.1);
 }

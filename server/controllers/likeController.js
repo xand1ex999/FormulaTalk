@@ -1,5 +1,6 @@
 import Post from "../models/Post.js";
-
+import User from "../models/User.js";
+import updateUserRank from "../utils/updateUserRank.js";
 
 class likeController{
 
@@ -7,6 +8,7 @@ class likeController{
     try {
       const { id } = req.params;
       const userId = req.user.id;
+      const user = await User.findById(userId);
       const post = await Post.findById(id);
       if (!post) {
         return res.status(404).json({ message: 'Post not found' });
@@ -14,12 +16,18 @@ class likeController{
       let action = '';
       if (post.likes.includes(userId)) {
         post.likes = post.likes.filter(likeId => likeId.toString() !== userId);
+        user.points--;
         action = 'unliked';
       } else {
         post.likes.push(userId);
+        user.points++;
         action = 'liked';
       }
       await post.save();
+      console.log({
+        points: user.points
+      });
+      await updateUserRank(user)
       res.status(200).json({
         message: `Post ${action}`,
         likesCount: post.likes.length,

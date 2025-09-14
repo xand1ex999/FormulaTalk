@@ -87,12 +87,12 @@ const CommentModal = ({ post, userId, onClose, onLike, onAddComment, handleDelet
           </div>
 
           <div className="modal-actions">
-            <button title='Like' className={`like-btn ${post.likes.includes(userId) ? 'liked' : ''}`} onClick={() => onLike(post._id)}>❤️</button>
-            <span>{post.likes.length} like{post.likes.length !== 1 ? 's' : ''}</span>
+            <button title='Like' className={`like-btn ${post.likes.includes(userId) ? 'liked' : ''}`} onClick={() => onLike(post._id)}>🏎️</button>
+            <span>{post.likes.length} pit stop{post.likes.length !== 1 ? 's' : ''}</span>
           </div>
 
           <div className="modal-add-comment">
-            <input type="text" placeholder="Add a comment..." value={commentText} onChange={(e) => setCommentText(e.target.value)} />
+            <input type="text" placeholder="Add a radio message..." value={commentText} onChange={(e) => setCommentText(e.target.value)} />
             <button onClick={handleAddComment}>Post</button>
           </div>
         </div>
