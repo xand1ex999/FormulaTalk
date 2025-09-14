@@ -192,7 +192,7 @@ const Profile = () => {
           )}
         </div>
         <div className="profile-info">
-          <h1 className="profile-username">{profileData.username}</h1>
+          <h1 className="profile-username">{profileData.username} <p className="user-profile-rank-badge">{profileData.rank}</p> </h1>
           <p className="profile-join-date">Joined {joinDate}</p>
         </div>
       </div>
