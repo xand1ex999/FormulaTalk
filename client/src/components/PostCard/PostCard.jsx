@@ -51,7 +51,10 @@ const PostCard = ({ post, userId, onLike, onOpenComments, onPostDeleted }) => {
           <img src={post.author.avatar || `https://ui-avatars.com/api/?name=${post.author.username}&background=random`} 
                alt={post.author.username} className="author-avatar" />
           <div className="author-info">
-            <span className="author-username">{post.author.username}</span>
+            <div className='author-username-rank'>
+              <span className="author-username">{post.author.username}</span>
+              <span className="author-rank-badge">{post.author.rank}</span>
+              </div>
             <span className="post-time">{formatDate(post.createdAt)}</span>
           </div>
         </div>

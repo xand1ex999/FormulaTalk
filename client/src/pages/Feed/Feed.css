@@ -1,34 +1,96 @@
 .feed-layout {
   display: grid;
-  grid-template-columns: 20px 1fr; 
-  gap: 20px;
-  max-width: 1200px;
+  grid-template-columns: 280px 1fr 300px; 
+  gap: 24px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 20px;
   margin-top: 48px;
+  align-items: start;
 }
 
 
-.feed-layout > .search-bar {
-  display: flex;
-  justify-content: flex-start;
+.sidebar-left {
+  height: fit-content;
 }
+
 
 .feed-main {
   display: flex;
   flex-direction: column;
-  align-items: center; 
   gap: 20px;
-  width: 100%;
 }
+
+
+.sidebar-right {
+  margin-top: 20px;
+  width: 320px;
+  height: fit-content;
+  margin-left: 50px;
+}
+
 
 .feed-container {
-  max-width: 600px;  
   width: 100%;
-  margin: 0 auto;
-  margin-top: -20px;
 }
 
+
+.post-form-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.feed {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.pagination-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+
+@media (max-width: 968px) {
+  .feed-layout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .sidebar-left,
+  .sidebar-right {
+    position: static;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .sidebar-left {
+    order: 1; 
+  }
+  
+  .feed-main {
+    order: 2; 
+  }
+  
+  .sidebar-right {
+    order: 3; 
+  }
+}
+
+@media (max-width: 640px) {
+  .feed-layout {
+    padding: 15px;
+    margin-top: 40px;
+    gap: 16px;
+  }
+}
 
 /* Loading and error states */
 .loading, .error {
@@ -38,10 +100,9 @@
   padding: 40px;
   font-size: 16px;
   color: #8e8e8e;
+  grid-column: 1 / -1;
 }
 
 .error {
   color: #ed4956;
 }
-
-

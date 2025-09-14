@@ -16,7 +16,7 @@ class postController {
       .limit(limit);                     
 
     await Post.populate(posts, [
-      { path: 'author', select: 'username avatar' },
+      { path: 'author', select: 'username avatar rank' },
       { path: 'comments.author', select: 'username avatar' }
     ]);
     const totalPosts = await Post.countDocuments();

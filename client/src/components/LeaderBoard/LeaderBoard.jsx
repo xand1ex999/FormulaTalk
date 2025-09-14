@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import '../LeaderBoard/LeaderBoard.css'
+import { useNavigate } from 'react-router-dom';
 
 const Leaderboard = () => {
+  const navigate = useNavigate();
   const [leaders, setLeaders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -45,8 +47,8 @@ const Leaderboard = () => {
         <h1 className="leaderboard-title">🏆 Leaderboard</h1>
         
         <div className="leaderboard-header">
-          <span className="rank-header">Rank</span>
-          <span className="user-header">User</span>
+          <span className="rank-header">Grid</span>
+          <span className="user-header">Driver</span>
           <span className="points-header">Points</span>
         </div>
 
@@ -54,18 +56,15 @@ const Leaderboard = () => {
           {leaders.map((user, index) => (
             <div key={user._id} className="leaderboard-item">
               <div className="user-rank">
-                <span className="rank-number">#{index + 1}</span>
+                <span className="rank-number">{index === 0 ? "Pole" : `P${index + 1}`}</span>
                 {index === 0 && <span className="crown">👑</span>}
               </div>
               
-              <div className="user-info">
+              <div className="user-info" onClick={() => navigate(`/profile/${user.username}`)}>
                 <img 
                   src={user.avatar} 
                   alt={user.username}
                   className="user-avatar"
-                  onError={(e) => {
-                    e.target.src = 'https://via.placeholder.com/40x40/cccccc/666666?text=👤';
-                  }}
                 />
                 <div className="user-details">
                   <span className="username">{user.username}</span>

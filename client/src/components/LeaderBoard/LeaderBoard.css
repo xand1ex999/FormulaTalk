@@ -1,108 +1,114 @@
 .leaderboard-layout {
-  padding: 20px;
-  max-width: 800px;
-  margin: 0 auto;
+  padding: 0;
+  max-width: 100%;
   font-family: 'Titillium Web', sans-serif;
 }
 
 .leaderboard-container {
-  background: white;
+  background: #101022; 
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  padding: 16px;
+  border: 1px solid #2a2a40;
 }
 
 .leaderboard-title {
   text-align: center;
-  color: #2d3748;
-  font-size: 28px;
-  margin-bottom: 24px;
+  color: #e2e8f0; 
+  font-size: 20px;
+  margin-bottom: 16px;
   font-weight: 700;
 }
 
 .leaderboard-header {
   display: grid;
-  grid-template-columns: 80px 1fr 100px;
-  padding: 12px 16px;
-  background: #f7fafc;
-  border-radius: 8px;
+  grid-template-columns: 50px 1fr 60px;
+  padding: 8px 12px;
+  background: #1c1c2e;
+  border-radius: 6px;
   font-weight: 600;
-  color: #4a5568;
-  margin-bottom: 8px;
+  color: #a0aec0;
+  margin-bottom: 6px;
+  font-size: 12px;
 }
 
 .leaderboard-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .leaderboard-item {
   display: grid;
-  grid-template-columns: 80px 1fr 100px;
+  grid-template-columns: 50px 1fr 60px;
   align-items: center;
-  padding: 16px;
-  background: white;
+  padding: 12px;
+  background: #141428;
   border-radius: 8px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #2a2a40;
   transition: all 0.2s ease;
 }
 
 .leaderboard-item:hover {
-  background: #f8fafc;
+  background: #1e1e3a;
   transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .user-rank {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   font-weight: 600;
-  color: #4a5568;
+  color: #a0aec0;
+  font-size: 14px;
 }
 
 .rank-number {
-  font-size: 16px;
-  min-width: 30px;
+  font-size: 14px;
+  min-width: 25px;
 }
 
 .crown {
-  font-size: 20px;
+  font-size: 16px;
+  margin-left: -6px;
 }
 
 .user-info {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 .user-avatar {
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #e2e8f0;
+  border: 2px solid #2a2a40;
+  cursor: pointer;
 }
 
 .user-details {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  cursor: pointer;
 }
 
 .username {
   font-weight: 600;
-  color: #2d3748;
-  font-size: 16px;
+  color: #e2e8f0;
+  font-size: 14px;
+  line-height: 1.2;
 }
 
 .user-rank-badge {
-  font-size: 12px;
-  color: #718096;
-  background: #edf2f7;
-  padding: 2px 8px;
-  border-radius: 12px;
+  font-size: 10px;
+  color: #a0aec0;
+  background: #1e1e3a;
+  padding: 2px 6px;
+  border-radius: 10px;
   text-transform: uppercase;
   font-weight: 500;
 }
@@ -110,80 +116,64 @@
 .user-points {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
   justify-content: flex-end;
 }
 
 .points {
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 700;
-  color: #2d3748;
+  color: #f2f2f2;
 }
 
 .points-label {
-  font-size: 12px;
-  color: #718096;
+  font-size: 10px;
+  color: #a0aec0;
   font-weight: 500;
-}
-
-.leaderboard-loading,
-.leaderboard-error {
-  text-align: center;
-  padding: 40px;
-  font-size: 18px;
-  color: #718096;
-}
-
-.leaderboard-error {
-  color: #e53e3e;
 }
 
 
 .leaderboard-item:nth-child(1) {
-  background: linear-gradient(135deg, #ffd70010, #ffffff);
+  background: linear-gradient(135deg, rgba(255,215,0,0.15), #141428);
   border-color: #ffd700;
 }
 
 .leaderboard-item:nth-child(2) {
-  background: linear-gradient(135deg, #c0c0c010, #ffffff);
+  background: linear-gradient(135deg, rgba(192,192,192,0.15), #141428);
   border-color: #c0c0c0;
 }
 
 .leaderboard-item:nth-child(3) {
-  background: linear-gradient(135deg, #cd7f3210, #ffffff);
+  background: linear-gradient(135deg, rgba(205,127,50,0.15), #141428);
   border-color: #cd7f32;
 }
 
 @media (max-width: 640px) {
-  .leaderboard-layout {
-    padding: 12px;
-  }
-  
   .leaderboard-container {
-    padding: 16px;
+    padding: 12px;
   }
   
   .leaderboard-header {
-    grid-template-columns: 60px 1fr 80px;
-    padding: 8px 12px;
-    font-size: 14px;
+    grid-template-columns: 40px 1fr 50px;
+    padding: 6px 8px;
+    font-size: 11px;
   }
   
   .leaderboard-item {
-    grid-template-columns: 60px 1fr 80px;
-    padding: 12px;
+    grid-template-columns: 40px 1fr 50px;
+    padding: 8px;
   }
   
   .user-avatar {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
   }
   
   .username {
-    font-size: 14px;
+    font-size: 12px;
   }
   
   .points {
-    font-size: 16px;
+    font-size: 12px;
   }
 }

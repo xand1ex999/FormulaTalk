@@ -114,41 +114,56 @@ const Feed = () => {
   if (error) return <div className="feed-container"><div className="error">{error}</div></div>;
 
   return (
-    <>
+ <>
     <div className="feed-layout">
-      <SearchBar />
-      <div className='feed-main'>
-        <PostForm onPostCreated={handlePostCreated}/>
-      <div className="feed-container">
-        <LeaderBoard/>
-        <div className="feed">
-          {posts.map(post => (
-            <PostCard 
-              key={post._id} 
-              post={post} 
-              userId={userId} 
-              onLike={handleLike} 
-              onOpenComments={openModal} 
-              onPostDeleted={handlePostDeleted}
-            />
-          ))}
-        </div>
-        {activePost && (
-          <CommentModal 
-            post={activePost} 
-            userId={userId} 
-            onClose={closeModal} 
-            onLike={handleLike} 
-            onAddComment={handleAddComment} 
-            handleDeleteComment={handleDeleteComment}
-          />
-        )}
+      {/* LEFT */}
+      <div className="sidebar-left">
+        <SearchBar />
       </div>
-      <Pagination page={page} totalPages={totalPages} onPageChange={handlePageChange} />
+
+      {/* MIDDLE */}
+      <div className="feed-main">
+        <div className="post-form-container">
+          <PostForm onPostCreated={handlePostCreated}/>
+        </div>
+        <div className="feed-container">
+          <div className="feed">
+            {posts.map(post => (
+              <PostCard 
+                key={post._id} 
+                post={post} 
+                userId={userId} 
+                onLike={handleLike} 
+                onOpenComments={openModal} 
+                onPostDeleted={handlePostDeleted}
+              />
+            ))}
+          </div>
+          
+          {activePost && (
+            <CommentModal 
+              post={activePost} 
+              userId={userId} 
+              onClose={closeModal} 
+              onLike={handleLike} 
+              onAddComment={handleAddComment} 
+              handleDeleteComment={handleDeleteComment}
+            />
+          )}
+        </div>
+        
+        <div className="pagination-container">
+          <Pagination page={page} totalPages={totalPages} onPageChange={handlePageChange} />
+        </div>
+      </div>
+
+      {/* RIGHT */}
+      <div className="sidebar-right">
+        <LeaderBoard/>
       </div>
     </div>
     <Footer />
-    </>
+  </>
   );
 };
 
