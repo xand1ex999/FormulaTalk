@@ -200,6 +200,8 @@ const Profile = () => {
       <div className='profile-nav'>
         <button onClick={()=>{setActiveTab('information')}}>Information</button>
         <button onClick={()=>{setActiveTab('posts')}}>Posts</button>
+        <button>Favorite Driver</button>
+        <button>Favorite Team</button>
       </div>
 
       {/* Information profile content */}

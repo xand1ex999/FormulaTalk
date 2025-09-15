@@ -12,6 +12,7 @@ import PostForm from '../../components/PostForm/PostForm.jsx';
 import Pagination from '../../components/Pagination/Pagination.jsx';
 import Footer from '../../components/Footer/Footer.jsx';
 import LeaderBoard from '../../components/LeaderBoard/LeaderBoard.jsx';
+import NextRace from '../../components/NextRace/NextRace.jsx';
 
 const Feed = () => {
   const { user } = useAuth();
@@ -115,6 +116,10 @@ const Feed = () => {
 
   return (
  <>
+    <div className="app-container">
+      <div className="next-race-section">
+        <NextRace />
+      </div>
     <div className="feed-layout">
       {/* LEFT */}
       <div className="sidebar-left">
@@ -157,9 +162,10 @@ const Feed = () => {
         </div>
       </div>
 
-      {/* RIGHT */}
-      <div className="sidebar-right">
-        <LeaderBoard/>
+        {/* RIGHT */}
+        <div className="sidebar-right">
+          <LeaderBoard/>
+        </div>
       </div>
     </div>
     <Footer />

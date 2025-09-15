@@ -1,0 +1,271 @@
+.next-race-compact {
+  background: #0d0d0d;
+  border-bottom: 1px solid #1f1f1f;
+  padding: 8px 0;
+  color: #ffffff;
+  font-family: 'Titillium Web', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  width: 100%;
+  padding-top: 15px; 
+  position: fixed;
+  top: 65px;
+  z-index: 10;
+  margin-top: 0; 
+}
+
+.compact-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  gap: 20px;
+}
+
+.race-info-compact {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  min-width: 200px;
+}
+
+.race-round-compact {
+  color: #ff1801;
+  font-weight: 600;
+}
+
+.race-dates {
+  color: #888;
+  font-weight: 500;
+}
+
+.race-name-compact {
+  color: #ffffff;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.track-info-compact {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  justify-content: center;
+}
+
+.track-location {
+  color: #ff1801;
+  font-weight: 600;
+}
+
+.track-name {
+  color: #888;
+}
+
+.time-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  min-width: 180px;
+  justify-content: flex-end;
+}
+
+.current-time {
+  color: #888;
+}
+
+.countdown-compact {
+  color: #ff1801;
+  font-weight: 700;
+  background: rgba(255, 24, 1, 0.1);
+  padding: 4px 8px;
+  border-radius: 4px;
+  min-width: 60px;
+  text-align: center;
+}
+
+.expand-btn {
+  background: none;
+  border: 1px solid #333;
+  color: #888;
+  width: 24px;
+  height: 24px;
+  border-radius: 3px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  transition: all 0.2s ease;
+}
+
+.expand-btn:hover {
+  border-color: #ff1801;
+  color: #ff1801;
+}
+
+.expand-btn.expanded {
+  background: #ff1801;
+  border-color: #ff1801;
+  color: #000;
+}
+
+/* FULL information */
+.next-race-expanded {
+  background: #1a1a1a;
+  border-bottom: 1px solid #333;
+  padding: 20px 0;
+  padding-top: 130px;
+  color: #ffffff;
+  margin-bottom: -100px;
+}
+
+.expanded-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.schedule-full {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.schedule-header {
+  color: #ff1801;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 14px;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+.schedule-item-full {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.session-type-full {
+  color: #ffffff;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.session-time-full {
+  color: #888;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.race-session {
+  border-left: 3px solid #ff1801;
+  background: rgba(255, 24, 1, 0.05);
+}
+
+.race-session .session-type-full {
+  color: #ff1801;
+}
+
+.circuit-info-full {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.circuit-name-full {
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.circuit-location-full {
+  color: #888;
+  font-size: 12px;
+}
+
+.wiki-link {
+  color: #ff1801;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-top: 5px;
+}
+
+.wiki-link:hover {
+  text-decoration: underline;
+}
+
+/* Adaptivity */
+@media (max-width: 768px) {
+  .compact-content {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .race-info-compact {
+    order: 1;
+    flex: 1;
+    min-width: auto;
+  }
+  
+  .track-info-compact {
+    order: 3;
+    flex: 100%;
+    justify-content: flex-start;
+  }
+  
+  .time-info {
+    order: 2;
+    min-width: auto;
+  }
+  
+  .expanded-content {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .compact-content {
+    padding: 0 15px;
+  }
+  
+  .race-info-compact {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+  
+  .time-info {
+    gap: 10px;
+  }
+  
+  .current-time {
+    display: none;
+  }
+}
+
+.next-race-loading,
+.next-race-error {
+  text-align: center;
+  padding: 10px;
+  font-size: 12px;
+  color: #888;
+}
+
+.next-race-error {
+  color: #ff1801;
+}

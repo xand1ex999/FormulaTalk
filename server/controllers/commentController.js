@@ -1,4 +1,6 @@
 import Post from "../models/Post.js";
+import User from "../models/User.js";
+import updateUserRank from "../utils/updateUserRank.js";
 
 class likeController{
 
@@ -6,6 +8,9 @@ class likeController{
     try {
       const { id } = req.params;
       const comment = req.body.comment;
+      const user = await User.findById(req.user.id);
+      user.points = user.points + 2;
+      await updateUserRank(user);
       if (!comment) {
         return res.status(400).json({ message: "Comment text is required" });
       }
@@ -67,6 +72,9 @@ class likeController{
   async deleteComment(req, res){
     try {
       const { postId, commentId } = req.params;
+      const user = await User.findById(req.user.id);
+      user.points = user.points - 2;
+      await updateUserRank(user);
       const post = await Post.findById(postId)
       if (!post) {
         return res.status(404).json({ message: "Post not found" });

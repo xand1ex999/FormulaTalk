@@ -58,7 +58,6 @@ const PostCard = ({ post, userId, onLike, onOpenComments, onPostDeleted }) => {
             <span className="post-time">{formatDate(post.createdAt)}</span>
           </div>
         </div>
-        {userId === post.author._id && (
           <div className="relative">
             <button
               className="post-more"
@@ -71,16 +70,14 @@ const PostCard = ({ post, userId, onLike, onOpenComments, onPostDeleted }) => {
             </button>
 
             {openMenu && (
-              <div
-                className="post-menu"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <button onClick={handleDelete}>🗑 Delete Post</button>
+              <div className="post-menu" onClick={(e) => e.stopPropagation()}>
+                {userId === post.author._id && (
+                  <button onClick={handleDelete}>🗑 Delete Post</button>
+                )}
                 <button onClick={handleReport}>🚩 Report</button>
               </div>
             )}
           </div>
-        )}
       </div>
 
       {post.files && post.files.length > 0 && (
