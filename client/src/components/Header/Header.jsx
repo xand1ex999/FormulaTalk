@@ -32,6 +32,7 @@ const Header = () => {
             <ul>
               <li><Link to="/feed">Feed</Link></li>
               <li><Link to={`/profile/${user.username}`}>Profile</Link></li>
+              <li><Link to="/fantasy">F1 Fantasy</Link></li>
               <li><Link to="/chat">Chat</Link></li>
               <li onClick={handleLogout}>Logout</li>
             </ul>

@@ -37,10 +37,15 @@ const UserSchema  = new mongoose.Schema({
     default: 0
   },
   favoriteDriver: {
-    type: String, default: '' 
+    id: { type: String, default: null },
+    name: { type: String, default: null },
+    team: { type: String, default: null },
+    avatar: { type: String, default: null }
   },
   favoriteTeam: {
-    type: String, default: '' 
+    id: { type: String, default: null },
+    name: { type: String, default: null },
+    logo: { type: String, default: null }
   }
 }, { timestamps: true });
 

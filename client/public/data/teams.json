@@ -1,0 +1,82 @@
+[
+  {
+    "id": "red_bull",
+    "name": "Red Bull Racing",
+    "country": "Austria",
+    "principal": "Christian Horner",
+    "car": "RB21",
+    "image": "https://pngimg.com/d/red_bull_PNG24.png"
+  },
+  {
+    "id": "ferrari",
+    "name": "Ferrari",
+    "country": "Italy",
+    "principal": "Frédéric Vasseur",
+    "car": "SF-25",
+    "image": "https://di-uploads-pod15.dealerinspire.com/lakeforestsportscars/uploads/2021/06/Ferrari-Logo.png"
+  },
+  {
+    "id": "mclaren",
+    "name": "McLaren",
+    "country": "United Kingdom",
+    "principal": "Andrea Stella",
+    "car": "MCL39",
+    "image": "https://upload.wikimedia.org/wikipedia/en/thumb/6/66/McLaren_Racing_logo.svg/2560px-McLaren_Racing_logo.svg.png"
+  },
+  {
+    "id": "mercedes",
+    "name": "Mercedes",
+    "country": "Germany",
+    "principal": "Toto Wolff",
+    "car": "W15",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Mercedes_AMG_Petronas_F1_Logo.svg/2560px-Mercedes_AMG_Petronas_F1_Logo.svg.png"
+  },
+  {
+    "id": "williams",
+    "name": "Williams",
+    "country": "United Kingdom",
+    "principal": "James Vowles",
+    "car": "FW47",
+    "image": "https://brandlogo.org/wp-content/uploads/2025/02/Williams-Racing-Icon-2020.png"
+  },
+  {
+    "id": "sauber_audi",
+    "name": "Sauber / Audi",
+    "country": "Switzerland",
+    "principal": "Andreas Seidl",
+    "car": "C45",
+    "image": "https://brandlogos.net/wp-content/uploads/2025/02/stake_f1_team_kick_sauber-logo_brandlogos.net_qpgut-512x449.png"
+  },
+  {
+    "id": "racing_bulls",
+    "name": "Racing Bulls",
+    "country": "Italy",
+    "principal": "Laurent Mekies",
+    "car": "VCARB 02",
+    "image": "https://upload.wikimedia.org/wikipedia/uk/7/77/Visa_Cash_App_Racing_Bulls_F1_Team_Logo_Blue.png"
+  },
+  {
+    "id": "haas",
+    "name": "Haas",
+    "country": "United States",
+    "principal": "Ayao Komatsu",
+    "car": "VF-25",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Logo_Haas_F1.png"
+  },
+  {
+    "id": "alpine",
+    "name": "Alpine",
+    "country": "France",
+    "principal": "Bruno Famin",
+    "car": "A525",
+    "image": "https://images.seeklogo.com/logo-png/40/2/alpine-f1-team-logo-png_seeklogo-403886.png"
+  },
+  {
+    "id": "aston_martin",
+    "name": "Aston Martin",
+    "country": "United Kingdom",
+    "principal": "Mike Krack",
+    "car": "AMR25",
+    "image": "https://1000logos.net/wp-content/uploads/2020/02/Aston-Martin-Logo.png"
+  }
+]
