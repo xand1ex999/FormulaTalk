@@ -396,3 +396,227 @@
   height: 100%;
 
 }
+
+
+/*active tab === posts section*/
+
+.paddock-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+}
+
+.paddock-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #888888;
+  max-width: 600px;
+  margin: 0 auto;
+  font-weight: 400;
+  font-family: 'Titillium Web', sans-serif;
+}
+
+
+
+.paddock-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #0f0f15 0%, #1a1a25 100%);
+  border-radius: 16px;
+  border: 1px solid #2a2a35;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.driver-paddock-card,
+.team-paddock-card {
+  background: linear-gradient(145deg, #1e1e28, #2a2a35);
+  border-radius: 12px;
+  padding: 2rem;
+  border: 2px solid #2a2a35;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.driver-paddock-card:hover,
+.team-paddock-card:hover {
+  border-color: #e10600;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(225, 6, 0, 0.15);
+}
+
+.driver-paddock-card::before,
+.team-paddock-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #e10600, #00d2be);
+}
+
+/* Card Headers */
+.driver-paddock-card h3,
+.team-paddock-card h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+  font-family: 'Titillium Web', sans-serif;
+}
+
+/* Images */
+.driver-paddock-card img,
+.team-paddock-card img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin: 0 auto 1.5rem;
+  display: block;
+  border: 2px solid #3a3a45;
+  transition: all 0.3s ease;
+}
+
+.driver-paddock-card img {
+  object-position: top center;
+}
+
+.team-paddock-card img {
+  object-fit: contain;
+  background: #ffffff;
+  padding: 0.5rem;
+}
+
+.driver-paddock-card:hover img,
+.team-paddock-card:hover img {
+  border-color: #e10600;
+  transform: scale(1.05);
+}
+
+/* Team Info */
+.driver-paddock-card p {
+  text-align: center;
+  margin: 0.5rem 0;
+  color: #cccccc;
+  font-size: 1rem;
+  font-weight: 400;
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.driver-paddock-card p:first-of-type {
+  color: #e10600;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+}
+
+/* Badges */
+.driver-paddock-card::after,
+.team-paddock-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #3a3a45, transparent);
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+  .paddock-section {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+  
+  .driver-paddock-card,
+  .team-paddock-card {
+    padding: 1.5rem;
+  }
+  
+  .driver-paddock-card img,
+  .team-paddock-card img {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .driver-paddock-card h3,
+  .team-paddock-card h3 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .paddock-section {
+    padding: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  .driver-paddock-card,
+  .team-paddock-card {
+    padding: 1.2rem;
+  }
+  
+  .driver-paddock-card img,
+  .team-paddock-card img {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .driver-paddock-card h3,
+  .team-paddock-card h3 {
+    font-size: 1.1rem;
+  }
+}
+
+/* Animation for smooth appearance */
+.paddock-section {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Professional details */
+.driver-paddock-card {
+  border-left: 4px solid #00d2be;
+}
+
+.team-paddock-card {
+  border-left: 4px solid #e10600;
+}
+
+.driver-paddock-card p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Hover effects for professionalism */
+.driver-paddock-card:hover {
+  border-left-color: #00d2be;
+  box-shadow: 0 8px 25px rgba(0, 210, 190, 0.15);
+}
+
+.team-paddock-card:hover {
+  border-left-color: #e10600;
+  box-shadow: 0 8px 25px rgba(225, 6, 0, 0.15);
+}

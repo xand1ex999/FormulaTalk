@@ -4,12 +4,14 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import './Profile.css' 
 import CommentModal from '../../components/CommentModal/CommentModal.jsx'
+import Footer from '../../components/Footer/Footer.jsx'
 
 const Profile = () => {
   const { username } = useParams();
   const { user } = useAuth();
   const [profileData, setProfileData] = useState(null);
   const [profilePosts, setProfilePosts] = useState([]);
+  const [paddockData, setPaddockData] = useState({});
   const [selectedPost, setSelectedPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -57,6 +59,23 @@ const Profile = () => {
       fetchProfilePosts();
     } 
   },[activeTab, username]);
+
+  useEffect(()=>{
+    if(!profileData){
+      return;
+    }
+    async function fetchPaddock(){
+      try {
+        const res = await axios.get(`/api/users/favorite/${username}`);
+        setPaddockData(res.data)
+      } catch (error) {
+        console.error("Error loading profile posts:", error);
+      }
+    }
+    if(activeTab === 'paddock'){
+      fetchPaddock();
+    } 
+  },[activeTab]);
 
   const openEditModal = () => {
     setIsEditModalOpen(true);
@@ -124,6 +143,7 @@ const Profile = () => {
   });
 
   return (
+    <>
     <div className="profile-container">
       {/* Modal window to change bio and avatar */}
       {isEditModalOpen && (
@@ -200,8 +220,7 @@ const Profile = () => {
       <div className='profile-nav'>
         <button onClick={()=>{setActiveTab('information')}}>Information</button>
         <button onClick={()=>{setActiveTab('posts')}}>Posts</button>
-        <button>Favorite Driver</button>
-        <button>Favorite Team</button>
+        <button onClick={()=>{setActiveTab('paddock')}}>Paddock Choices</button>
       </div>
 
       {/* Information profile content */}
@@ -258,8 +277,8 @@ const Profile = () => {
                   )}
 
                   <div className="overlay">
-                    <span>❤️ {post.likes.length}</span>
-                    <span>💬 {post.comments.length}</span>
+                    <span>🏎️ {post.likes.length}</span>
+                    <span>🏁 {post.comments.length}</span>
                   </div>
                 </div>
               ))}
@@ -269,6 +288,33 @@ const Profile = () => {
           )}
         </div>
       )}
+
+      {/* Favorites content */}
+      {activeTab === 'paddock' && (
+        <>
+        <div className="paddock-header">
+          <p className="paddock-description">
+            My selected driver and constructor team for the current season
+          </p>
+        </div>
+        <div className="paddock-section">
+          {paddockData.favoriteDriver && (
+            <div className="driver-paddock-card">
+              <img src={paddockData.favoriteDriver.avatar || '/default-avatar.png'} alt={paddockData.favoriteDriver.name || 'Driver'} />
+              <h3>{paddockData.favoriteDriver.name}</h3>
+              <p>Team: {paddockData.favoriteDriver.team}</p>
+            </div>
+          )}
+
+          {paddockData.favoriteTeam && (
+            <div className="team-paddock-card">
+              <img src={paddockData.favoriteTeam.logo || '/default-logo.png'} alt={paddockData.favoriteTeam.name || 'Team'} />
+              <h3>{paddockData.favoriteTeam.name}</h3>
+            </div>
+          )}
+        </div>
+        </>
+      )}
       {selectedPost && (
         <CommentModal 
           post={selectedPost} 
@@ -276,6 +322,7 @@ const Profile = () => {
         />
       )}
     </div>
+    </>
   );
 }
 

@@ -71,10 +71,10 @@ const PostCard = ({ post, userId, onLike, onOpenComments, onPostDeleted }) => {
 
             {openMenu && (
               <div className="post-menu" onClick={(e) => e.stopPropagation()}>
-                {userId === post.author._id && (
-                  <button onClick={handleDelete}>🗑 Delete Post</button>
-                )}
-                <button onClick={handleReport}>🚩 Report</button>
+                {userId === post.author._id 
+                ? <button onClick={handleDelete}>🗑 Delete Post</button>
+                : <button onClick={handleReport}>🚩 Report</button>
+                }
               </div>
             )}
           </div>

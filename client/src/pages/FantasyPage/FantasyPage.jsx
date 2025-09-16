@@ -3,6 +3,7 @@ import { useAuth } from '../../context/AuthContext';
 import axios from 'axios';
 import './FantasyPage.css';
 import { toast } from 'react-toastify';
+import Footer from '../../components/Footer/Footer';
 
 const FantasyPage = () => {
   const { user } = useAuth();
@@ -79,6 +80,7 @@ const FantasyPage = () => {
   
 
   return (
+    <>
     <div className="fantasy-container">
       {/* Drivers */}
       <section className="drivers-section">
@@ -163,6 +165,8 @@ const FantasyPage = () => {
         </p>
       </div>
     </div>
+    <Footer/>
+    </>
   )
 }
 

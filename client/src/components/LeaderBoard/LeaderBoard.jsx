@@ -68,8 +68,8 @@ const Leaderboard = () => {
                 />
                 <div className="user-details">
                   <span className="username">{user.username}</span>
-                  <span className="user-rank-badge">{user.rank}</span>
                 </div>
+                <span className="user-rank-badge">{user.rank}</span>
               </div>
               
               <div className="user-points">
