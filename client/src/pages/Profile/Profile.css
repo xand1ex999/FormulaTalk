@@ -620,3 +620,9 @@
   border-left-color: #e10600;
   box-shadow: 0 8px 25px rgba(225, 6, 0, 0.15);
 }
+
+.no-paddock-selection{
+  display: flex;
+  justify-content: center;
+  color: #888888;
+}

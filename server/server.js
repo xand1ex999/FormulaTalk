@@ -2,9 +2,16 @@ import express from "express";
 import mongoose from "mongoose"; 
 import dotenv from "dotenv";     
 import cors from "cors"; 
+import http, { createServer } from 'http'
+import { Server } from "socket.io";
+//routes
 import authRoutes from './routes/authRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 import postRoutes from './routes/postRoutes.js'
+import chatRoutes from './routes/chatRoutes.js'
+import messageRoutes from './routes/messageRoutes.js'
+//socket
+import initWebSocket from "./WebSocket.js";
 
 dotenv.config();
 const app = express();
@@ -20,16 +27,30 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api', postRoutes);
 app.use('/uploads', express.static('uploads'));
+app.use('/api', chatRoutes);
+app.use('/api', messageRoutes);
+
 
 app.get("/", (req, res) => {
   res.send("🚀 backend is working!");
 });
 
+const server = http.createServer(app);
+
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST"]
+  }
+});
+
+initWebSocket(io);
+
 async function startApp() {
   try {
     await mongoose.connect(DB_URL);
     console.log('Connected to MongoDB');
-    app.listen(PORT, () => {
+    server.listen(PORT, () => {  
       console.log(`Server started on port ${PORT}`);
     });
   } catch (error) {

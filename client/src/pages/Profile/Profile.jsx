@@ -12,6 +12,7 @@ const Profile = () => {
   const [profileData, setProfileData] = useState(null);
   const [profilePosts, setProfilePosts] = useState([]);
   const [paddockData, setPaddockData] = useState({});
+  const [paddockOpen, setPaddockOpen] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -68,6 +69,7 @@ const Profile = () => {
       try {
         const res = await axios.get(`/api/users/favorite/${username}`);
         setPaddockData(res.data)
+        setPaddockOpen(true)
       } catch (error) {
         console.error("Error loading profile posts:", error);
       }
@@ -292,29 +294,40 @@ const Profile = () => {
       {/* Favorites content */}
       {activeTab === 'paddock' && (
         <>
-        <div className="paddock-header">
-          <p className="paddock-description">
-            My selected driver and constructor team for the current season
-          </p>
-        </div>
-        <div className="paddock-section">
-          {paddockData.favoriteDriver && (
-            <div className="driver-paddock-card">
-              <img src={paddockData.favoriteDriver.avatar || '/default-avatar.png'} alt={paddockData.favoriteDriver.name || 'Driver'} />
-              <h3>{paddockData.favoriteDriver.name}</h3>
-              <p>Team: {paddockData.favoriteDriver.team}</p>
-            </div>
-          )}
+          <div className="paddock-header">
+            <p className="paddock-description">
+              My selected driver and constructor team for the current season
+            </p>
+          </div>
+          
+          {((paddockData.favoriteDriver && paddockData.favoriteDriver.name) || 
+            (paddockData.favoriteTeam && paddockData.favoriteTeam.name)) ? (
+            <div className="paddock-section">
+              {paddockData.favoriteDriver && paddockData.favoriteDriver.name && (
+                <div className="driver-paddock-card">
+                  <img src={paddockData.favoriteDriver.avatar || '/default-avatar.png'} 
+                      alt={paddockData.favoriteDriver.name} />
+                  <h3>{paddockData.favoriteDriver.name}</h3>
+                  <p>Team: {paddockData.favoriteDriver.team}</p>
+                </div>
+              )}
 
-          {paddockData.favoriteTeam && (
-            <div className="team-paddock-card">
-              <img src={paddockData.favoriteTeam.logo || '/default-logo.png'} alt={paddockData.favoriteTeam.name || 'Team'} />
-              <h3>{paddockData.favoriteTeam.name}</h3>
+              {paddockData.favoriteTeam && paddockData.favoriteTeam.name && (
+                <div className="team-paddock-card">
+                  <img src={paddockData.favoriteTeam.logo || '/default-logo.png'} 
+                      alt={paddockData.favoriteTeam.name} />
+                  <h3>{paddockData.favoriteTeam.name}</h3>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="no-paddock-selection">
+              <p>No driver or team selected yet</p>
             </div>
           )}
-        </div>
         </>
       )}
+
       {selectedPost && (
         <CommentModal 
           post={selectedPost} 
