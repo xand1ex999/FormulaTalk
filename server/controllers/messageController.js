@@ -33,6 +33,9 @@ class messageController{
         text
       });
       await Chat.findByIdAndUpdate(chatId, { lastMessage: newMessage._id });
+      const io = req.app.get("io");
+      const populatedMessage = await newMessage.populate("sender", "username");
+      io.to(chatId).emit("receive_message", populatedMessage);
       res.status(201).json(newMessage);
     } catch (err) {
       console.error(err);

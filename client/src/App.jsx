@@ -7,7 +7,7 @@ import Header from "./components/Header/Header.jsx";
 import RequireAuth from "./components/RequireAuth.jsx";
 import Profile from "./pages/Profile/Profile.jsx"
 import Feed from "./pages/Feed/Feed.jsx";
-import Chat from "./components/Chat/Chat.jsx";
+import Chat from "./pages/Chat/Chat.jsx";
 import FantasyPage from "./pages/FantasyPage/FantasyPage.jsx";
 
 // For redirecting based on auth status

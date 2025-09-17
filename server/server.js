@@ -44,6 +44,7 @@ const io = new Server(server, {
   }
 });
 
+app.set("io", io);
 initWebSocket(io);
 
 async function startApp() {

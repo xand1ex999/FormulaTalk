@@ -5,8 +5,10 @@ import axios from 'axios'
 import './Profile.css' 
 import CommentModal from '../../components/CommentModal/CommentModal.jsx'
 import Footer from '../../components/Footer/Footer.jsx'
+import { useNavigate } from 'react-router-dom'
 
 const Profile = () => {
+  const navigate = useNavigate();
   const { username } = useParams();
   const { user } = useAuth();
   const [profileData, setProfileData] = useState(null);
@@ -113,6 +115,22 @@ const Profile = () => {
     }
   };
 
+  
+  async function handleCreateChat(){
+    try {
+      const res = await axios.post(`/api/chats`, {
+        receiverId: profileData.id
+      })
+      console.log("created succesfully");
+      navigate('/chat')
+    } catch (error) {
+      console.log("Error creating a chat", error)
+    }
+  }
+
+  
+  
+
   if (loading) {
     return (
       <div className="profile-container">
@@ -143,6 +161,8 @@ const Profile = () => {
     month: 'long',
     day: 'numeric'
   });
+ 
+  
 
   return (
     <>
@@ -217,6 +237,11 @@ const Profile = () => {
           <h1 className="profile-username">{profileData.username} <p className="user-profile-rank-badge">{profileData.rank}</p> </h1>
           <p className="profile-join-date">Joined {joinDate}</p>
         </div>
+        {user.id !== profileData._id 
+        ? (<div className='create-chat-button'>
+            <button onClick={()=>{handleCreateChat()}}>Go to the chat</button>
+          </div>)
+        : ('')}
       </div>
 
       <div className='profile-nav'>
