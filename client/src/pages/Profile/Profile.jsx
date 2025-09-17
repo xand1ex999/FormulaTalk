@@ -346,8 +346,10 @@ const Profile = () => {
       {selectedPost && (
         <CommentModal 
           post={selectedPost} 
-          onClose={() => setSelectedPost(null)} 
+          onClose={() => setSelectedPost(null)}
         />
+        // will fix this at the end, 2 options: 1. make a custom hook which is going to have all functions, like, delete, etc..
+        // 2. repeat all logic here
       )}
     </div>
     </>

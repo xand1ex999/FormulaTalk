@@ -10,6 +10,7 @@ import userRoutes from './routes/userRoutes.js'
 import postRoutes from './routes/postRoutes.js'
 import chatRoutes from './routes/chatRoutes.js'
 import messageRoutes from './routes/messageRoutes.js'
+import aiRoutes from './routes/aiRoutes.js'
 //socket
 import initWebSocket from "./WebSocket.js";
 
@@ -23,13 +24,13 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
+app.use('/api/ai', aiRoutes)
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api', postRoutes);
 app.use('/uploads', express.static('uploads'));
 app.use('/api', chatRoutes);
 app.use('/api', messageRoutes);
-
 
 app.get("/", (req, res) => {
   res.send("🚀 backend is working!");
