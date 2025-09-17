@@ -42,7 +42,7 @@ class fantasyController{
       });
     } catch (error) {
       console.error('Error updating favorite selection:', error);
-      res.status(500).json({ message: 'Server error' });
+      res.status(500).json({ message: 'Error updating favorite selection' });
     }
   }
 
@@ -54,7 +54,7 @@ class fantasyController{
       res.json(user)
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: 'Server error' });
+      res.status(500).json({ message: 'Error getting favorite selection' });
     }
   }
 

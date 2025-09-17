@@ -6,7 +6,7 @@ import '../PostCard/PostCard.css'
 
 const PostCard = ({ post, userId, onLike, onOpenComments, onPostDeleted }) => {
   const navigate = useNavigate();
-  const [openMenu, setOpenMenu] = useState(false);
+  const [ openMenu, setOpenMenu ] = useState(false);
 
 
   const formatDate = (dateString) => {
@@ -20,8 +20,6 @@ const PostCard = ({ post, userId, onLike, onOpenComments, onPostDeleted }) => {
 
   async function handleDelete(e){
     e.stopPropagation();
-    console.log("works");
-    console.log(userId,"and", post.author._id);
     try {
       const res = await axios.delete(`/api/posts/${post._id}`);
       onPostDeleted(post._id); 

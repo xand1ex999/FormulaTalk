@@ -13,10 +13,10 @@ class userController{
       const users = await User.find({
         username: { $regex: search.trim(), $options: "i" } //regex = (contains) analog
       }).select("username avatar");   
-    res.json(users);
+      res.json(users);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: "Server error" });
+      res.status(500).json({ message: "Server error to search for users" });
     }
   }
 
@@ -34,7 +34,7 @@ class userController{
       res.json({ id, username, bio, createdAt, avatar, rank, points, favoriteDriver, favoriteTeam });
     } catch (error) {
       console.error(error);
-      res.status(500).json({message: "Server error"})
+      res.status(500).json({message: "Server error to get a profile"})
     }
   }
 
@@ -57,7 +57,7 @@ class userController{
       res.json(updatedUser);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: "Server error" });
+      res.status(500).json({ message: "Server error to change bio or avatar" });
     }
   }
 
@@ -72,13 +72,12 @@ class userController{
       }
       res.json({ message: "User deleted successfully" });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Server error" });
+      console.error(error);
+      res.status(500).json({ message: "Server error to delete profile" });
     }
   }
 
   //posts related
-
   async getPublicPosts(req, res){
     try {
       const { username } = req.params;

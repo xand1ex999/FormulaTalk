@@ -25,7 +25,7 @@ class likeController{
       res.status(200).json(newComment);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: "Server error" });
+      res.status(500).json({ message: "Error creating a comment" });
     }
   }
 
@@ -36,11 +36,11 @@ class likeController{
       if (!post) {
         return res.status(404).json({ message: "Post not found" });
       }
-      const comments = post.comments
+      const comments = post.comments;
       res.status(200).json(comments)
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: "Server error" });
+      res.status(500).json({ message: "Error getting all comments" });
     }
   }
 
@@ -65,7 +65,7 @@ class likeController{
       res.status(200).json(comment);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: "Server error" });      
+      res.status(500).json({ message: "Error while changing the comment" });      
     }
   }
 
@@ -91,7 +91,7 @@ class likeController{
       res.status(200).json({ message: "Comment deleted successfully" });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: "Server error" });       
+      res.status(500).json({ message: "Error deleting a comment" });       
     }
   }
 }

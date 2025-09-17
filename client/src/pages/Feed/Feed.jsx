@@ -17,16 +17,17 @@ import NextRace from '../../components/NextRace/NextRace.jsx';
 const Feed = () => {
   const { user } = useAuth();
   const userId = user?.id;
-  const navigate = useNavigate();
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [activePost, setActivePost] = useState(null);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const pageParam = parseInt(searchParams.get('page')) || 1;  
-  const [page, setPage] = useState(pageParam);
-  const [totalPages, setTotalPages] = useState(1);
   const { postId } = useParams();
+  const navigate = useNavigate();
+  const [ posts, setPosts ] = useState([]);
+  const [ loading, setLoading ] = useState(true);
+  const [ error, setError ] = useState(null);
+  const [ activePost, setActivePost ] = useState(null);
+  const [ searchParams, setSearchParams ] = useSearchParams();
+  const pageParam = parseInt(searchParams.get('page')) || 1;  
+  const [ page, setPage ] = useState(pageParam);
+  const [ totalPages, setTotalPages ] = useState(1);
+  const [ newContext, setNewContext ] = useState('');
 
   useEffect(() => {
     if (postId && posts.length > 0) {
@@ -100,7 +101,21 @@ const Feed = () => {
     }
   }, []);
 
-
+  const handleChangeComment = useCallback(async (postId, commentId, newText) => {
+    try {
+      const res = await axios.patch(`/api/posts/${postId}/comments/${commentId}`, {
+        comment: newText
+      })
+      console.log(res.data);
+      setPosts(prev => prev.map(p => p._id === postId ? {...p, comments: p.comments.map(c => c._id === commentId ? {...c, text: res.data.text} : c)} : p ));
+      setActivePost(prev => prev && prev._id === postId ? {...prev, comments: prev.comments.map(c => c._id === commentId ? {...c, text: res.data.text} : c)} : prev );
+      toast.success("Comment updated!");
+    } catch (error) {
+      console.error("Error", error)
+      toast.error("Failed to change comment")
+    }
+  }, []);
+  
   const openModal = useCallback((post) => {
     setActivePost(post);               
     navigate(`/feed/posts/${post._id}`, { replace: false }); 
@@ -115,61 +130,62 @@ const Feed = () => {
   if (error) return <div className="feed-container"><div className="error">{error}</div></div>;
 
   return (
- <>
-    <div className="app-container">
-      <div className="next-race-section">
-        <NextRace />
-      </div>
-    <div className="feed-layout">
-      {/* LEFT */}
-      <div className="sidebar-left">
-        <SearchBar />
-      </div>
-
-      {/* MIDDLE */}
-      <div className="feed-main">
-        <div className="post-form-container">
-          <PostForm onPostCreated={handlePostCreated}/>
+    <>
+      <div className="app-container">
+        <div className="next-race-section">
+          <NextRace />
         </div>
-        <div className="feed-container">
-          <div className="feed">
-            {posts.map(post => (
-              <PostCard 
-                key={post._id} 
-                post={post} 
+      <div className="feed-layout">
+        {/* LEFT */}
+        <div className="sidebar-left">
+          <SearchBar />
+        </div>
+
+        {/* MIDDLE */}
+        <div className="feed-main">
+          <div className="post-form-container">
+            <PostForm onPostCreated={handlePostCreated}/>
+          </div>
+          <div className="feed-container">
+            <div className="feed">
+              {posts.map(post => (
+                <PostCard 
+                  key={post._id} 
+                  post={post} 
+                  userId={userId} 
+                  onLike={handleLike} 
+                  onOpenComments={openModal} 
+                  onPostDeleted={handlePostDeleted}
+                />
+              ))}
+            </div>
+            
+            {activePost && (
+              <CommentModal 
+                post={activePost} 
                 userId={userId} 
+                onClose={closeModal} 
                 onLike={handleLike} 
-                onOpenComments={openModal} 
-                onPostDeleted={handlePostDeleted}
+                onAddComment={handleAddComment} 
+                handleDeleteComment={handleDeleteComment}
+                handleChangeComment={handleChangeComment}
               />
-            ))}
+            )}
           </div>
           
-          {activePost && (
-            <CommentModal 
-              post={activePost} 
-              userId={userId} 
-              onClose={closeModal} 
-              onLike={handleLike} 
-              onAddComment={handleAddComment} 
-              handleDeleteComment={handleDeleteComment}
-            />
-          )}
+          <div className="pagination-container">
+            <Pagination page={page} totalPages={totalPages} onPageChange={handlePageChange} />
+          </div>
         </div>
-        
-        <div className="pagination-container">
-          <Pagination page={page} totalPages={totalPages} onPageChange={handlePageChange} />
-        </div>
-      </div>
 
-        {/* RIGHT */}
-        <div className="sidebar-right">
-          <LeaderBoard/>
+          {/* RIGHT */}
+          <div className="sidebar-right">
+            <LeaderBoard/>
+          </div>
         </div>
       </div>
-    </div>
-    <Footer />
-  </>
+      <Footer />
+    </>
   );
 };
 

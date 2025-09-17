@@ -289,44 +289,49 @@
 .modal-actions {
   display: flex;
   gap: 1rem;
-  justify-content: flex-end;
+  justify-content: flex-start;
   margin-top: 1rem;
 }
 
 .cancel-btn {
-  padding: 0.75rem 1.5rem;
+  font-family: 'Titillium Web', sans-serif;
+  padding: 0.7rem 1.7rem;
   border: 2px solid #e5e7eb;
   background: white;
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
-  color: #6b7280;
+  color: #bcbec2;
 }
 
 .cancel-btn:hover {
-  background: #f9fafb;
+  background: #fafafa;
 }
 
-.save-btn {
-  padding: 0.75rem 1.5rem;
-  color: #6b7280;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+.cancel-btn:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 138, 138, 0.3);
+}
+
+.save-btn-modal {
+  font-family: 'Titillium Web', sans-serif;
+  padding: 0.7rem 1.7rem;
+  color: #ffffff;
+  background: #ef4444;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
 }
 
-.save-btn:hover:not(:disabled) {
+.save-btn-modal:hover{
+  background: #f00e0e;
+}
+
+.save-btn-modal:hover{
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(214, 24, 24, 0.3);
 }
-
-.save-btn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-
 
 .avatar-image {
   width: 80px;

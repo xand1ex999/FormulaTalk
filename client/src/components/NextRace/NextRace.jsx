@@ -3,12 +3,12 @@ import axios from 'axios';
 import './NextRace.css';
 
 const NextRace = () => {
-  const [raceData, setRaceData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [countdown, setCountdown] = useState('');
-  const [currentTime, setCurrentTime] = useState('');
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [ raceData, setRaceData ] = useState(null);
+  const [ loading, setLoading ] = useState(true);
+  const [ error, setError ] = useState(null);
+  const [ countdown, setCountdown ] = useState('');
+  const [ currentTime, setCurrentTime ] = useState('');
+  const [ isExpanded, setIsExpanded ] = useState(false);
 
   useEffect(() => {
     const fetchNextRace = async () => {
@@ -58,7 +58,7 @@ const NextRace = () => {
       }
     };
     updateTimes();
-    const interval = setInterval(updateTimes, 60000); // update every minute
+    const interval = setInterval(updateTimes, 60000);
     return () => clearInterval(interval);
   }, [raceData]);
 

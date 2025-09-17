@@ -7,14 +7,14 @@ import './AuthPage.css';
 import axios from 'axios';
 
 export default function AuthPage() {
-  const { user, login } = useAuth();
   const navigate = useNavigate();
-  const [mode, setMode] = useState("signin"); 
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const { user, login } = useAuth();
+  const [ mode, setMode ] = useState("signin"); 
+  const [ username, setUsername ] = useState("");
+  const [ email, setEmail ] = useState("");
+  const [ password, setPassword ] = useState("");
+  const [ error, setError ] = useState(null);
+  const [ loading, setLoading ] = useState(false);
 
   if (user) {
     return <Navigate to="/" replace />;
@@ -31,7 +31,7 @@ export default function AuthPage() {
         : { email, password }
       );
       console.log("res.data ===>", res.data);
-      const {token, user} = res.data;
+      const { token, user } = res.data;
       login(token)
       toast.success(
       mode === "register"
@@ -52,58 +52,58 @@ export default function AuthPage() {
 
   return (
     <>
-        <div className="auth-container">
-      <div className="auth-card">
-        <h1 className='register-login-text'>{mode === 'signin'? "SIGN IN" : "CREATE ACCOUNT"}</h1>
-        <img src={registerPic} alt="logo" />
-        <div className="auth-switch">
-          <button 
-            className={mode === "signin" ? "active" : ""} 
-            onClick={() => setMode("signin")}
-          >
-            Sign In
-          </button>
-          <button 
-            className={mode === "register" ? "active" : ""} 
-            onClick={() => setMode("register")}
-          >
-            Register
-          </button>
-        </div>
-        <form onSubmit={handleSubmit}>
-          {mode === "register" && (
+      <div className="auth-container">
+        <div className="auth-card">
+          <h1 className='register-login-text'>{mode === 'signin'? "SIGN IN" : "CREATE ACCOUNT"}</h1>
+          <img src={registerPic} alt="logo" />
+          <div className="auth-switch">
+            <button 
+              className={mode === "signin" ? "active" : ""} 
+              onClick={() => setMode("signin")}
+            >
+              Sign In
+            </button>
+            <button 
+              className={mode === "register" ? "active" : ""} 
+              onClick={() => setMode("register")}
+            >
+              Register
+            </button>
+          </div>
+          <form onSubmit={handleSubmit}>
+            {mode === "register" && (
+              <input
+              type="text"
+              name="username"
+              placeholder="Username"
+              value={username}
+              onChange={(e)=>{setUsername(e.target.value)}}
+              required
+            />
+            )}
             <input
-            type="text"
-            name="username"
-            placeholder="Username"
-            value={username}
-            onChange={(e)=>{setUsername(e.target.value)}}
-            required
-          />
-          )}
-          <input
-            type="email"
-            name="email"
-            placeholder="Email Address"
-            value={email}
-            onChange={(e)=>{setEmail(e.target.value)}}
-            required
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e)=>{setPassword(e.target.value)}}
-            required
-          />
-          <button type="submit" className="submit-btn">
-            {mode === "signin" ? "Sign In" : "Register"}
-          </button>
-        </form>
-        {error && <p className="error-message">{error}</p>}
+              type="email"
+              name="email"
+              placeholder="Email Address"
+              value={email}
+              onChange={(e)=>{setEmail(e.target.value)}}
+              required
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e)=>{setPassword(e.target.value)}}
+              required
+            />
+            <button type="submit" className="submit-btn">
+              {mode === "signin" ? "Sign In" : "Register"}
+            </button>
+          </form>
+          {error && <p className="error-message">{error}</p>}
+        </div>
       </div>
-    </div>
     </>
   );
 }

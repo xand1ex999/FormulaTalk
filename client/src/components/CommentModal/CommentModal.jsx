@@ -5,11 +5,11 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import '../CommentModal/CommentModal.css'
 
-const CommentModal = ({ post, userId, onClose, onLike, onAddComment, handleDeleteComment }) => {
-  const [commentText, setCommentText] = useState('');
-  const [currentPhoto, setCurrentPhoto] = useState(0);  
+const CommentModal = ({ post, userId, onClose, onLike, onAddComment, handleDeleteComment, handleChangeComment }) => {
   const navigate = useNavigate();
-
+  const [ commentText, setCommentText ] = useState('');
+  const [ currentPhoto, setCurrentPhoto ] = useState(0);  
+  
   const handleAddComment = async () => {
     if (!commentText.trim()) return;
     try {
@@ -35,7 +35,6 @@ const CommentModal = ({ post, userId, onClose, onLike, onAddComment, handleDelet
       setCurrentPhoto((prev) => prev - 1);
     }
   };
-
 
   return (
     <div className="comment-modal" onClick={onClose}>
@@ -71,7 +70,7 @@ const CommentModal = ({ post, userId, onClose, onLike, onAddComment, handleDelet
         <div className="modal-right">
           <div className="modal-header">
             <img src={post.author.avatar || `https://ui-avatars.com/api/?name=${post.author.username}&background=random`} 
-                 alt={post.author.username} className="author-avatar" onClick={()=>{navigate(`/profile/${post.author.username}`)}} />
+                 alt={post.author.username} className="author-avatar" onClick={() => {navigate(`/profile/${post.author.username}`)}} />
             <span className="author-username">{post.author.username}</span>
             <button className="close-modal" onClick={onClose}>×</button>
           </div>
@@ -82,8 +81,16 @@ const CommentModal = ({ post, userId, onClose, onLike, onAddComment, handleDelet
           </div>
 
           <div className="modal-comments">
-            {post.comments.length > 0 ? post.comments.map((c, idx) => <Comment key={c._id} comment={c} handleDeleteComment={(commentId) => handleDeleteComment(post._id, commentId)}  />) :
-            <p className="no-comments">No comments yet.</p>}
+            {post.comments.length > 0 
+            ? post.comments.map((c, idx) => 
+            <Comment 
+            key={c._id} 
+            comment={c} 
+            handleDeleteComment={(commentId) => handleDeleteComment(post._id, commentId)}  
+            handleChangeComment={(commentId, newText) => handleChangeComment(post._id, commentId, newText)}
+            />) 
+            
+            :<p className="no-comments">No comments yet.</p>}
           </div>
 
           <div className="modal-actions">
@@ -92,7 +99,17 @@ const CommentModal = ({ post, userId, onClose, onLike, onAddComment, handleDelet
           </div>
 
           <div className="modal-add-comment">
-            <input type="text" placeholder="Add a radio message..." value={commentText} onChange={(e) => setCommentText(e.target.value)} />
+            <input 
+            type="text" 
+            placeholder="Add a radio message..." 
+            value={commentText} 
+            onChange={(e) => setCommentText(e.target.value)} 
+            onKeyDown={e => {
+              if(e.key === "Enter"){
+                  e.preventDefault();
+                  handleAddComment()
+                }
+              }} />
             <button onClick={handleAddComment}>Post</button>
           </div>
         </div>

@@ -5,6 +5,6 @@ import { authenticateJWT } from '../middlewares/authMiddleware.js';
 const router = express.Router();
 
 router.post('/chats', authenticateJWT, chatController.createChat); 
-router.get('/chats', authenticateJWT, chatController.getAllChats); //left side with all chats
+router.get('/chats', authenticateJWT, chatController.getAllChats); 
 
 export default router;

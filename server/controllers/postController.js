@@ -29,9 +29,9 @@ class postController {
       });
       } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Server error' });
+        res.status(500).json({ message: 'Server error to get all posts' });
       }
-}
+  }
 
     async createPost(req, res) {
     try {
@@ -55,11 +55,10 @@ class postController {
       const user = await User.findById(req.user.id)
       user.points = user.points + 10;
       await updateUserRank(user)
-      console.log(user);
       res.status(201).json(newPost);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: 'Server error' });
+      res.status(500).json({ message: 'Server error to create a post' });
     }
   }
 
@@ -112,7 +111,7 @@ class postController {
       res.status(200).json(post);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: 'Server error' });
+      res.status(500).json({ message: 'Server error to change a content' });
     }
   }
 
@@ -139,7 +138,7 @@ class postController {
       res.status(200).json({ message: 'Post deleted successfully' });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: 'Server error' });
+      res.status(500).json({ message: 'Server error to delete a post' });
     }
   }
 
@@ -174,7 +173,7 @@ class postController {
       res.status(201).json(reported);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: 'Server error' });
+      res.status(500).json({ message: 'Server error to report a post' });
     }
   }
 
@@ -189,7 +188,7 @@ class postController {
       res.status(200).json(reports);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: 'Server error' });
+      res.status(500).json({ message: 'Server error to get all reports' });
     }
   }
 

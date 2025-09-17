@@ -11,20 +11,20 @@ const Profile = () => {
   const navigate = useNavigate();
   const { username } = useParams();
   const { user } = useAuth();
-  const [profileData, setProfileData] = useState(null);
-  const [profilePosts, setProfilePosts] = useState([]);
-  const [paddockData, setPaddockData] = useState({});
-  const [paddockOpen, setPaddockOpen] = useState(false);
-  const [selectedPost, setSelectedPost] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [editForm, setEditForm] = useState({
+  const [ profileData, setProfileData ] = useState(null);
+  const [ profilePosts, setProfilePosts ] = useState([]);
+  const [ paddockData, setPaddockData ] = useState({});
+  const [ paddockOpen, setPaddockOpen ] = useState(false);
+  const [ selectedPost, setSelectedPost ] = useState(null);
+  const [ loading, setLoading ] = useState(true);
+  const [ error, setError ] = useState(null);
+  const [ isEditModalOpen, setIsEditModalOpen ] = useState(false);
+  const [ editForm, setEditForm ] = useState({
     bio: '',
     avatar: ''
   });
-  const [submitting, setSubmitting] = useState(false);
-  const [activeTab, setActiveTab] = useState('information');
+  const [ submitting, setSubmitting ] = useState(false);
+  const [ activeTab, setActiveTab ] = useState('information');
 
   useEffect(() => {
     async function fetchProfile() {
@@ -91,10 +91,7 @@ const Profile = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEditForm(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setEditForm(prev => ({...prev, [name]: value}));
   };
 
   const handleSubmit = async (e) => {
@@ -114,22 +111,17 @@ const Profile = () => {
       setSubmitting(false);
     }
   };
-
   
   async function handleCreateChat(){
     try {
       const res = await axios.post(`/api/chats`, {
         receiverId: profileData.id
       })
-      console.log("created succesfully");
       navigate('/chat')
     } catch (error) {
       console.log("Error creating a chat", error)
     }
   }
-
-  
-  
 
   if (loading) {
     return (
@@ -162,8 +154,6 @@ const Profile = () => {
     day: 'numeric'
   });
  
-  
-
   return (
     <>
     <div className="profile-container">
@@ -212,7 +202,7 @@ const Profile = () => {
                 <button 
                   type="submit" 
                   disabled={submitting}
-                  className="save-btn"
+                  className="save-btn-modal"
                 >
                   {submitting ? 'Saving...' : 'Save Changes'}
                 </button>
@@ -239,15 +229,15 @@ const Profile = () => {
         </div>
         {user.id !== profileData._id 
         ? (<div className='create-chat-button'>
-            <button onClick={()=>{handleCreateChat()}}>Go to the chat</button>
+            <button onClick={() => {handleCreateChat()}}>Go to the chat</button>
           </div>)
         : ('')}
       </div>
 
       <div className='profile-nav'>
-        <button onClick={()=>{setActiveTab('information')}}>Information</button>
-        <button onClick={()=>{setActiveTab('posts')}}>Posts</button>
-        <button onClick={()=>{setActiveTab('paddock')}}>Paddock Choices</button>
+        <button onClick={() => {setActiveTab('information')}}>Information</button>
+        <button onClick={() => {setActiveTab('posts')}}>Posts</button>
+        <button onClick={() => {setActiveTab('paddock')}}>Paddock Choices</button>
       </div>
 
       {/* Information profile content */}

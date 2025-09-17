@@ -6,7 +6,7 @@ import { useAuth } from "../../context/AuthContext.jsx";
 import tyresPattern from '../../assets/tyresPattern.jpg'
 
 const Header = () => {
-  const {user, logout} = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -25,7 +25,7 @@ const Header = () => {
       <div className="container">
         <div className="header_items">
           <div className="header_logo">
-            <img src={f1Logo} alt="f1Logo" onClick={()=>{navigate("/feed")}} />
+            <img src={f1Logo} alt="f1Logo" onClick={() => {navigate("/feed")}} />
           </div>
           <nav>
             {user ? 

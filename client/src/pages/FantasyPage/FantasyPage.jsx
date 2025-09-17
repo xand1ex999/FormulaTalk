@@ -7,10 +7,10 @@ import Footer from '../../components/Footer/Footer';
 
 const FantasyPage = () => {
   const { user } = useAuth();
-  const [drivers, setDrivers] = useState([]);
-  const [teams, setTeams] = useState([]);
-  const [selectedDriver, setSelectedDriver] = useState(null);
-  const [selectedTeam, setSelectedTeam] = useState(null);
+  const [ drivers, setDrivers ] = useState([]);
+  const [ teams, setTeams ] = useState([]);
+  const [ selectedDriver, setSelectedDriver ] = useState(null);
+  const [ selectedTeam, setSelectedTeam ] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,10 +35,6 @@ const FantasyPage = () => {
     if(selectedDriver === driverId){
       setSelectedDriver(null)
     }    
-    console.log(drivers);
-    console.log(user.id);
-    
-    console.log('Selected driver:', driverId);
   };
 
   const handleTeamSelect = (teamId) => {
@@ -46,7 +42,6 @@ const FantasyPage = () => {
     if(selectedTeam === teamId){
       setSelectedTeam(null)
     }
-    console.log('Selected team:', teamId);
   };
 
   async function handleSaveSelection(){
@@ -54,8 +49,6 @@ const FantasyPage = () => {
       try {
         const foundDriver = drivers.find((el)=> el.id === selectedDriver);
         const foundTeam = teams.find((el)=> el.id === selectedTeam);
-        console.log(foundDriver);
-        console.log(foundTeam);  
         const res = await axios.post(`/api/users/favorite`, {
           userId: user.id,
           favoriteDriver: {
@@ -70,7 +63,7 @@ const FantasyPage = () => {
         }})
         toast.success(res.data.message)
       } catch (error) {
-        
+        console.error(error)
       }
     } else {
       toast.error('Please select both a driver and a team')

@@ -1,13 +1,12 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useState, useEffect } from 'react'
 import axios from 'axios';
-import { useEffect } from 'react';
 import './SearchBar.css';
 import { useNavigate } from 'react-router-dom';
 
 const SearchBar = () => {
-  const [query, setQuery] = useState('');
-  const [usersFound, setUsersFound] = useState([]);
   const navigate = useNavigate();
+  const [ query, setQuery ] = useState('');
+  const [ usersFound, setUsersFound ] = useState([]);
 
   useEffect(() => {
     async function searchUsers(){
@@ -28,12 +27,12 @@ const SearchBar = () => {
   return (
     <>
     <div className='search-bar'>
-      <input type="text" placeholder="Search..." value={query} onChange={(e)=>{setQuery(e.target.value)}} />
+      <input type="text" placeholder="Search..." value={query} onChange={(e) => {setQuery(e.target.value)}} />
       {usersFound.length > 0 && (
       <div className='search-results'>
         <p>Search Result:</p>
         {usersFound.map(user => (
-          <div className='search-user' key={user._id} onClick={()=>{navigate(`/profile/${user.username}`); setQuery(''); setUsersFound([])}}>
+          <div className='search-user' key={user._id} onClick={() => {navigate(`/profile/${user.username}`); setQuery(''); setUsersFound([])}}>
             <img src={user.avatar} alt="avatar" className='username-avatar' />
             <span className='username-result'>{user.username}</span>
           </div>

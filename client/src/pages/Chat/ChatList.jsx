@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import './Chat.css'
 
-const ChatList = ({chats, setChats, setSelectedChat,selectedChat, userId}) => {
+const ChatList = ({ chats, setChats, setSelectedChat,selectedChat, userId }) => {
 
   useEffect(()=>{
     async function fetchChats(){

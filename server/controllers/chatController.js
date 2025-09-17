@@ -5,7 +5,7 @@ class chatController{
   async createChat(req, res){
     try {
       const userId = req.user.id;
-      const {receiverId} = req.body;
+      const { receiverId } = req.body;
       if (!receiverId) {
         return res.status(400).json({ message: "receiverId is required" });
       }
@@ -21,10 +21,9 @@ class chatController{
       res.status(201).json(chat);
     } catch (error) {
       console.error(err);
-      res.status(500).json({ message: "Server error" });
+      res.status(500).json({ message: "Error creating chat" });
     }
   }
-
 
    async getAllChats(req, res){
       try {
@@ -35,10 +34,9 @@ class chatController{
         res.json(chats);
       } catch (error) {
         console.error(err);
-        res.status(500).json({ message: "Server error" });
+        res.status(500).json({ message: "Error getting all chats" });
       }
   }
-
 }
 
 export default new chatController();

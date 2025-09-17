@@ -24,9 +24,6 @@ class likeController{
         action = 'liked';
       }
       await post.save();
-      console.log({
-        points: user.points
-      });
       await updateUserRank(user)
       res.status(200).json({
         message: `Post ${action}`,
@@ -35,7 +32,7 @@ class likeController{
       });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: 'Server error' });
+      res.status(500).json({ message: 'Error with likes' });
     }
   }
 }

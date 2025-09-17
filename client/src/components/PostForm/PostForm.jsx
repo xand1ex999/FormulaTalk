@@ -4,9 +4,9 @@ import "./PostForm.css";
 import { toast } from "react-toastify";
 
 const PostForm = ({ onPostCreated }) => {
-  const [content, setContent] = useState("");
-  const [files, setFiles] = useState([]);
-  const [previews, setPreviews] = useState([]);
+  const [ content, setContent ] = useState("");
+  const [ files, setFiles ] = useState([]);
+  const [ previews, setPreviews ] = useState([]);
   
   async function createPost(e) {
     e.preventDefault();
@@ -56,6 +56,12 @@ const PostForm = ({ onPostCreated }) => {
           placeholder="Share your thoughts about Formula 1..."
           value={content}
           onChange={(e) => setContent(e.target.value)}
+          onKeyDown={e => {
+            if(e.key === "Enter"){
+              e.preventDefault();
+              createPost(e)
+            }
+          }}
         />
 
         {previews.map((preview, index) => (

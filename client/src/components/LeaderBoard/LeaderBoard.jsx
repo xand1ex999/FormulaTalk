@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router-dom';
 
 const Leaderboard = () => {
   const navigate = useNavigate();
-  const [leaders, setLeaders] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [ leaders, setLeaders ] = useState([]);
+  const [ loading, setLoading ] = useState(true);
+  const [ error, setError ] = useState('');
 
   useEffect(() => {
     async function fetchLeaderboard() {

@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react'
 import axios from 'axios'
 import './Chat.css'
 
-const ChatWindow = ({chatId, messages, setMessages, currentUserId}) => {
+const ChatWindow = ({ chatId, messages, setMessages, currentUserId }) => {
   const chatEndRef = useRef(null);
 
   useEffect(()=>{
