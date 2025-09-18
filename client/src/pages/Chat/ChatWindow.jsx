@@ -12,7 +12,7 @@ const ChatWindow = ({ chatId, messages, setMessages, currentUserId }) => {
       try {
         const res = await axios.get(`/api/messages/${chatId}`)
         setMessages(res.data)
-        console.log("Fetched messages:", res.data);
+        // console.log("Fetched messages:", res.data);
       } catch (error) {
         console.error("Error fetching messages:", error)
       }
@@ -24,12 +24,11 @@ const ChatWindow = ({ chatId, messages, setMessages, currentUserId }) => {
       chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
 
-  console.log('ChatWindow rendering with:', { chatId, messages });
+  // console.log('ChatWindow rendering with:', { chatId, messages });
 
   return (
     <div className="chat-window">
       {messages.map(msg => (
-        <>
         <div
           key={msg._id}
           className={`message ${
@@ -44,7 +43,6 @@ const ChatWindow = ({ chatId, messages, setMessages, currentUserId }) => {
             {new Date(msg.timestamp).toLocaleTimeString()}
           </div>
         </div>
-        </>
       ))}
       <div ref={chatEndRef} />
     </div>

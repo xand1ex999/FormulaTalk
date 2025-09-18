@@ -33,7 +33,7 @@ const SearchBar = () => {
         <p>Search Result:</p>
         {usersFound.map(user => (
           <div className='search-user' key={user._id} onClick={() => {navigate(`/profile/${user.username}`); setQuery(''); setUsersFound([])}}>
-            <img src={user.avatar} alt="avatar" className='username-avatar' />
+            <img src={user.avatar || `https://ui-avatars.com/api/?name=${user.username}&background=random`} alt="avatar" className='username-avatar' loading="lazy" />
             <span className='username-result'>{user.username}</span>
           </div>
         ))}

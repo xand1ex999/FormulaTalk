@@ -22,7 +22,6 @@ const PostForm = ({ onPostCreated }) => {
 
     try {
       const res = await axios.post("/api/posts", formData);
-      console.log("Post created:", res.data);
       toast.success("Post created")
       setContent("");
       setFiles([]);

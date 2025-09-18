@@ -5,6 +5,7 @@ import { useAuth } from '../../context/AuthContext';
 import { toast } from "react-toastify";
 import './AuthPage.css';
 import axios from 'axios';
+import { Eye, EyeOff } from 'lucide-react';
 
 export default function AuthPage() {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ export default function AuthPage() {
   const [ password, setPassword ] = useState("");
   const [ error, setError ] = useState(null);
   const [ loading, setLoading ] = useState(false);
+  const [ showPassword, setShowPassword ] = useState(false);
 
   if (user) {
     return <Navigate to="/" replace />;
@@ -30,7 +32,7 @@ export default function AuthPage() {
         ? { username, email, password }
         : { email, password }
       );
-      console.log("res.data ===>", res.data);
+      // console.log("res.data ===>", res.data);
       const { token, user } = res.data;
       login(token)
       toast.success(
@@ -89,14 +91,23 @@ export default function AuthPage() {
               onChange={(e)=>{setEmail(e.target.value)}}
               required
             />
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e)=>{setPassword(e.target.value)}}
-              required
-            />
+            <div className="password-wrapper">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="show-password-btn"
+              >
+                {showPassword ? <Eye size={18} /> : <EyeOff size={18} />}
+              </button>
+            </div>
             <button type="submit" className="submit-btn">
               {mode === "signin" ? "Sign In" : "Register"}
             </button>

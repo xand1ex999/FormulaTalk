@@ -14,7 +14,6 @@ const CommentModal = ({ post, userId, onClose, onLike, onAddComment, handleDelet
     if (!commentText.trim()) return;
     try {
       const res = await axios.post(`/api/posts/${post._id}/comments`, { comment: commentText });
-      console.log('Comment added:', res.data);
       onAddComment(post._id, res.data);
       setCommentText('');
       toast.success('Comment added!');

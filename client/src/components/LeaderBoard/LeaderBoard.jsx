@@ -62,7 +62,7 @@ const Leaderboard = () => {
               
               <div className="user-info" onClick={() => navigate(`/profile/${user.username}`)}>
                 <img 
-                  src={user.avatar} 
+                  src={user.avatar || `https://ui-avatars.com/api/?name=${user.username}&background=random` } 
                   alt={user.username}
                   className="user-avatar"
                 />

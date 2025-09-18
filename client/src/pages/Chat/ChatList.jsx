@@ -11,7 +11,7 @@ const ChatList = ({ chats, setChats, setSelectedChat,selectedChat, userId }) => 
       try {
         const res = await axios.get(`/api/chats`)
         setChats(res.data)
-        console.log('Fetched chats:', res.data);
+        // console.log('Fetched chats:', res.data);
       } catch (error) {
         console.error('Error fetching chats:', error)
       }
@@ -19,7 +19,7 @@ const ChatList = ({ chats, setChats, setSelectedChat,selectedChat, userId }) => 
     fetchChats();
   }, []);
 
-  console.log('ChatList rendering with:', { chats, userId });
+  // console.log('ChatList rendering with:', { chats, userId });
   
   return (
     <div className="chat-list">

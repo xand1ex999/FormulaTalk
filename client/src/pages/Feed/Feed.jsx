@@ -77,7 +77,7 @@ const Feed = () => {
 
 
   const handleAddComment = useCallback((postId, newComment) => {
-    console.log('Adding comment to post:', postId, newComment);
+    // console.log('Adding comment to post:', postId, newComment);
     setPosts(prev => prev.map(p => p._id === postId ? {...p, comments: [...p.comments, newComment]} : p));
     setActivePost(prev => prev && prev._id === postId ? { ...prev, comments: [...prev.comments, newComment] } : prev);
   },[]);
@@ -106,7 +106,6 @@ const Feed = () => {
       const res = await axios.patch(`/api/posts/${postId}/comments/${commentId}`, {
         comment: newText
       })
-      console.log(res.data);
       setPosts(prev => prev.map(p => p._id === postId ? {...p, comments: p.comments.map(c => c._id === commentId ? {...c, text: res.data.text} : c)} : p ));
       setActivePost(prev => prev && prev._id === postId ? {...prev, comments: prev.comments.map(c => c._id === commentId ? {...c, text: res.data.text} : c)} : prev );
       toast.success("Comment updated!");

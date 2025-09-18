@@ -147,3 +147,32 @@ html, body {
   font-size: 14px;
   text-align: center;
 }
+
+.password-wrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 16px; 
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 40px; 
+  border-radius: 6px;
+  border: none;
+  background: #2a2a2a;
+  color: white;
+  font-size: 14px;
+  padding: 12px;
+}
+
+.password-wrapper .show-password-btn {
+  position: absolute;
+  top: 40%;
+  right: 12px;
+  transform: translateY(-50%);
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: white;
+  font-size: 16px;
+}
