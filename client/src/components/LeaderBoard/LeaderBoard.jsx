@@ -84,4 +84,4 @@ const Leaderboard = () => {
   );
 };
 
-export default Leaderboard;
+export default React.memo(Leaderboard);

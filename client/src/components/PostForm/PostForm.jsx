@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import axios from "axios";
 import "./PostForm.css";
 import { toast } from "react-toastify";
@@ -36,18 +36,18 @@ const PostForm = ({ onPostCreated }) => {
     }
   }
 
-  const handleFileChange = (e) => {
+  const handleFileChange = useCallback((e) => {
     const newFiles = Array.from(e.target.files);
     setFiles(prev => [...prev, ...newFiles]);
     const newPreviews = newFiles.map(file => URL.createObjectURL(file));
     setPreviews(prev => [...prev, ...newPreviews]);
-  };
+  }, []);
 
-  const handleRemoveFile = (index) => {
+  const handleRemoveFile = useCallback((index) => {
     URL.revokeObjectURL(previews[index]);
     setFiles(prev => prev.filter((_, i) => i !== index));
     setPreviews(prev => prev.filter((_, i) => i !== index));
-  };
+  }, [previews]);
 
   return (
     <div className="post-form">

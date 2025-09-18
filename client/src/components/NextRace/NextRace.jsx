@@ -195,4 +195,4 @@ const NextRace = () => {
   );
 };
 
-export default NextRace;
+export default React.memo(NextRace);

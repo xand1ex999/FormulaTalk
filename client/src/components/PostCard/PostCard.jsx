@@ -47,7 +47,7 @@ const PostCard = ({ post, userId, onLike, onOpenComments, onPostDeleted }) => {
       <div className="post-header">
         <div className="post-author" onClick={() => navigate(`/profile/${post.author.username}`)}>
           <img src={post.author.avatar || `https://ui-avatars.com/api/?name=${post.author.username}&background=random`} 
-               alt={post.author.username} className="author-avatar" />
+               alt={post.author.username} className="author-avatar" loading="lazy"/>
           <div className="author-info">
             <div className='author-username-rank'>
               <span className="author-username">{post.author.username}</span>
@@ -80,7 +80,7 @@ const PostCard = ({ post, userId, onLike, onOpenComments, onPostDeleted }) => {
 
       {post.files && post.files.length > 0 && (
         <div className="post-image-container">
-          <img src={post.files[0]} alt="Post image" className="post-image" />
+          <img src={post.files[0]} alt="Post image" className="post-image" loading="lazy" />
         </div>
       )}
 

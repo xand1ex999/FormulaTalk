@@ -39,9 +39,7 @@ class postController {
         return res.status(401).json({ message: 'Unauthorized' });
       }
       const { content } = req.body;
-      const files = req.files ? req.files.map(f => 
-          `${req.protocol}://${req.get('host')}/uploads/${f.filename}`
-        ) : [];
+      const files = req.files?.map(f => `${req.protocol}://${req.get("host")}/uploads/${f.filename}`) || [];
     
       const newPost = await Post.create({
         author: req.user.id,
@@ -61,7 +59,6 @@ class postController {
       res.status(500).json({ message: 'Server error to create a post' });
     }
   }
-
 
   async getPost(req, res) {
     try {
@@ -176,7 +173,6 @@ class postController {
       res.status(500).json({ message: 'Server error to report a post' });
     }
   }
-
 
   async getAllReports(req, res) {
     try {

@@ -118,4 +118,4 @@ const CommentModal = ({ post, userId, onClose, onLike, onAddComment, handleDelet
   );
 };
 
-export default CommentModal;
+export default React.memo(CommentModal);

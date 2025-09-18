@@ -1,9 +1,11 @@
 import express from 'express';
 import { authenticateJWT } from '../middlewares/authMiddleware.js';
+import { convertImagesToWebP } from '../middlewares/convertImageMiddleware.js'
 import postController from '../controllers/postController.js';
 import likeController from '../controllers/likeController.js';
 import commentController from '../controllers/commentController.js';
 import multer from 'multer';
+import sharp from "sharp";
 import fs from 'fs';
 
 const storage = multer.diskStorage({
@@ -27,7 +29,7 @@ router.post('/posts/reports/:id', authenticateJWT, postController.createReport);
 
 //posts
 router.get('/posts', postController.getAllPosts);
-router.post('/posts', authenticateJWT, upload.array('files', 10), postController.createPost);
+router.post('/posts', authenticateJWT, upload.array('files', 10), convertImagesToWebP, postController.createPost);
 router.get('/posts/:id', postController.getPost);
 router.patch('/posts/:id', authenticateJWT, postController.changeContent);
 router.delete('/posts/:id', authenticateJWT, postController.deletePost);
