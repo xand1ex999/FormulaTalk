@@ -1,6 +1,5 @@
 import express from 'express';
 import { authenticateJWT } from '../middlewares/authMiddleware.js';
-import { convertImagesToWebP } from '../middlewares/convertImageMiddleware.js'
 import postController from '../controllers/postController.js';
 import likeController from '../controllers/likeController.js';
 import commentController from '../controllers/commentController.js';
@@ -8,18 +7,7 @@ import multer from 'multer';
 import sharp from "sharp";
 import fs from 'fs';
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    const uploadPath = 'uploads/';
-    if (!fs.existsSync(uploadPath)) fs.mkdirSync(uploadPath);
-    cb(null, uploadPath); 
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' + file.originalname);
-  }
-});
-
-const upload = multer({ storage });
+const upload = multer({ dest: 'tmp/' });
 
 const router = express.Router();
 
@@ -29,7 +17,7 @@ router.post('/posts/reports/:id', authenticateJWT, postController.createReport);
 
 //posts
 router.get('/posts', postController.getAllPosts);
-router.post('/posts', authenticateJWT, upload.array('files', 10), convertImagesToWebP, postController.createPost);
+router.post('/posts', authenticateJWT, upload.array('files', 10), postController.createPost);
 router.get('/posts/:id', postController.getPost);
 router.patch('/posts/:id', authenticateJWT, postController.changeContent);
 router.delete('/posts/:id', authenticateJWT, postController.deletePost);

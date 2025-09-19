@@ -3,6 +3,8 @@ import Report from "../models/Report.js";
 import mongoose from 'mongoose';
 import updateUserRank from "../utils/updateUserRank.js";
 import User from "../models/User.js";
+import cloudinary from 'cloudinary';
+import fs from 'fs';
 
 class postController {
 
@@ -39,8 +41,14 @@ class postController {
         return res.status(401).json({ message: 'Unauthorized' });
       }
       const { content } = req.body;
-      const files = req.files?.map(f => `${req.protocol}://${req.get("host")}/uploads/${f.filename}`) || [];
-    
+      let files = [];
+        if (req.files && req.files.length > 0) {
+          for (const file of req.files) {
+            const result = await cloudinary.v2.uploader.upload(file.path, { folder: "posts" });
+            files.push(result.secure_url);
+            fs.unlinkSync(file.path); 
+          }
+        }
       const newPost = await Post.create({
         author: req.user.id,
         content,
