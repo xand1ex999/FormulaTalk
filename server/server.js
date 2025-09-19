@@ -20,21 +20,18 @@ const PORT = process.env.PORT || 5000;
 const DB_URL = process.env.DB_URL;
 
 const allowedOrigins = [
-  'http://localhost:5173',               
-  'https://formulatalk-webapp.onrender.com' 
+  "http://localhost:5173",
+  "https://formulatalk-webapp.onrender.com"
 ];
 
-// Middleware
+//Middleware
 app.use(cors({
-  origin: function(origin, callback){
-    if(!origin) return callback(null, true);
-    if(allowedOrigins.includes(origin)){
-      return callback(null, true);
-    } else {
-      return callback(new Error('Not allowed by CORS'));
-    }
-  }
+  origin: allowedOrigins,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
+
 
 app.use(express.json());
 

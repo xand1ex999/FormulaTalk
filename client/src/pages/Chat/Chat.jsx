@@ -18,7 +18,7 @@ const Chat = () => {
   useEffect(() => {
     if (!user) return;
     const s = io(SOCKET_URL, {
-      transports: ['websocket'],
+      transports: ['websocket', 'polling'],
       auth: { token }, 
     });
     setSocket(s);

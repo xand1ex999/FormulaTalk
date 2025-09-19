@@ -29,7 +29,7 @@ const Feed = () => {
   const [ totalPages, setTotalPages ] = useState(1);
   const [ newContext, setNewContext ] = useState('');
 
-  console.log(api.defaults.headers.common['Authorization']);
+  // console.log(api.defaults.headers.common['Authorization']);
   useEffect(() => {
     if (postId && posts.length > 0) {
       const post = posts.find(p => p._id === postId);
