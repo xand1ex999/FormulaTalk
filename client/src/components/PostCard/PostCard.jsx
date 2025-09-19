@@ -1,4 +1,4 @@
-import axios from 'axios';
+import api from '../../api.js'
 import React, { memo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -21,7 +21,7 @@ const PostCard = ({ post, userId, onLike, onOpenComments, onPostDeleted }) => {
   async function handleDelete(e){
     e.stopPropagation();
     try {
-      const res = await axios.delete(`/api/posts/${post._id}`);
+      const res = await api.delete(`/posts/${post._id}`);
       onPostDeleted(post._id); 
       toast.success(res.data.message);
     } catch (error) {
@@ -33,7 +33,7 @@ const PostCard = ({ post, userId, onLike, onOpenComments, onPostDeleted }) => {
   async function handleReport(e){
     e.stopPropagation();
     try {
-      const res = await axios.post(`/api/posts/reports/${post._id}`);
+      const res = await api.post(`/posts/reports/${post._id}`);
       setOpenMenu((prev) => !prev)
       toast.success("Successfully reported")
     } catch (error) {

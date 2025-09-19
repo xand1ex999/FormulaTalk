@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BotMessageSquare, X } from "lucide-react";
-import axios from 'axios';
+import api from '../../api.js'
 import './AIHelper.css';
 
 const AIHelper = () => {
@@ -15,7 +15,7 @@ const AIHelper = () => {
     setMessage('');
 
     try {
-      const res = await axios.post(`/api/ai/chat`, {
+      const res = await api.post(`/ai/chat`, {
         message: userMessage.text
       })
       const aiMessage = { type: 'ai', text: res.data.reply };

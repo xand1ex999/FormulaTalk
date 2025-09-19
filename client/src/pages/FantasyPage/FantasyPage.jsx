@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import axios from 'axios';
+import api from '../../api.js'
 import './FantasyPage.css';
 import { toast } from 'react-toastify';
 import Footer from '../../components/Footer/Footer';
@@ -49,7 +49,7 @@ const FantasyPage = () => {
       try {
         const foundDriver = drivers.find((el)=> el.id === selectedDriver);
         const foundTeam = teams.find((el)=> el.id === selectedTeam);
-        const res = await axios.post(`/api/users/favorite`, {
+        const res = await api.post(`/users/favorite`, {
           userId: user.id,
           favoriteDriver: {
             id: foundDriver.id,

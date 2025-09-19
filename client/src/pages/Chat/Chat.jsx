@@ -6,13 +6,26 @@ import ChatList from './ChatList.jsx'
 import ChatWindow from './ChatWindow.jsx'
 import ChatInput from './ChatInput.jsx'
 
-const socket = io("http://localhost:5000")
+const SOCKET_URL = import.meta.env.VITE_BACKEND_URL;
 
 const Chat = () => {
-  const { user } = useAuth();
+  const { user, token } = useAuth();
+  const [ socket, setSocket ] = useState(null);
   const [ chats, setChats ] = useState([]);
   const [ selectedChat, setSelectedChat ] = useState(null);
   const [ messages, setMessages ] = useState([]);
+
+  useEffect(() => {
+    if (!user) return;
+    const s = io(SOCKET_URL, {
+      transports: ['websocket'],
+      auth: { token }, 
+    });
+    setSocket(s);
+    return () => {
+      s.disconnect();
+    };
+  }, [user, token]);
 
   useEffect(()=>{
     if(!selectedChat) return;

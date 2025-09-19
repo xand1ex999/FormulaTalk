@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../api.js'
 import { toast } from 'react-toastify';
 import { useAuth } from '../../context/AuthContext';
 import {useParams, useNavigate } from 'react-router-dom';
@@ -29,6 +29,7 @@ const Feed = () => {
   const [ totalPages, setTotalPages ] = useState(1);
   const [ newContext, setNewContext ] = useState('');
 
+  console.log(api.defaults.headers.common['Authorization']);
   useEffect(() => {
     if (postId && posts.length > 0) {
       const post = posts.find(p => p._id === postId);
@@ -40,7 +41,7 @@ const Feed = () => {
     async function fetchPosts() {
       try {
         setLoading(true);
-        const res = await axios.get(`/api/posts?page=${page}`);
+        const res = await api.get(`/posts?page=${page}`);
         setPosts(res.data.posts);
         setTotalPages(res.data.totalPages);
       } catch (err) {
@@ -64,7 +65,7 @@ const Feed = () => {
   
  const handleLike = useCallback(async (postId) => {
     try {
-      const res = await axios.post(`/api/posts/${postId}/toggleLike`);
+      const res = await api.post(`/posts/${postId}/toggleLike`, {});
       const likes = res.data.likes
       setPosts(prev => prev.map(p => p._id === postId ? {...p, likes} : p))
       setActivePost(prev => prev && prev._id === postId ? {...prev, likes} : prev)
@@ -91,7 +92,7 @@ const Feed = () => {
 
   const handleDeleteComment = useCallback(async (postId, commentId) => {
     try {
-      const res = await axios.delete(`/api/posts/${postId}/comments/${commentId}`);
+      const res = await api.delete(`/posts/${postId}/comments/${commentId}`);
       setPosts(prev => prev.map(p => p._id === postId ? {...p, comments: p.comments.filter(c => c._id !== commentId)} : p)); //I need both states for immutable state update
       setActivePost(prev => prev && prev._id === postId ? { ...prev, comments: prev.comments.filter(c => c._id !== commentId) } : prev);
       toast.success(res.data.message)
@@ -103,7 +104,7 @@ const Feed = () => {
 
   const handleChangeComment = useCallback(async (postId, commentId, newText) => {
     try {
-      const res = await axios.patch(`/api/posts/${postId}/comments/${commentId}`, {
+      const res = await api.patch(`/posts/${postId}/comments/${commentId}`, {
         comment: newText
       })
       setPosts(prev => prev.map(p => p._id === postId ? {...p, comments: p.comments.map(c => c._id === commentId ? {...c, text: res.data.text} : c)} : p ));

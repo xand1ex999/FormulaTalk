@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Comment from '../Comment/Comment.jsx';
-import axios from 'axios';
+import api from '../../api.js';
 import { toast } from 'react-toastify';
 import '../CommentModal/CommentModal.css'
 
@@ -13,7 +13,7 @@ const CommentModal = ({ post, userId, onClose, onLike, onAddComment, handleDelet
   const handleAddComment = async () => {
     if (!commentText.trim()) return;
     try {
-      const res = await axios.post(`/api/posts/${post._id}/comments`, { comment: commentText });
+      const res = await api.post(`/posts/${post._id}/comments`, { comment: commentText });
       onAddComment(post._id, res.data);
       setCommentText('');
       toast.success('Comment added!');

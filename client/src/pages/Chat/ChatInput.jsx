@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../../api.js';
 import './Chat.css'
 
 const ChatInput = ({ chatId, socket }) => {
@@ -8,7 +8,7 @@ const ChatInput = ({ chatId, socket }) => {
   const handleSendMessage = async () => {
     if (text.trim() === '' || !chatId) return;
     try {
-      const res = await axios.post(`/api/messages/${chatId}`, { text });
+      const res = await api.post(`/messages/${chatId}`, { text });
       const newMessage = res.data;
       socket.emit('send_message', newMessage);
       setText('');

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useAuth } from '../../context/AuthContext'
 import { useParams } from 'react-router-dom'
-import axios from 'axios'
+import api from '../../api.js'
 import './Profile.css' 
 import CommentModal from '../../components/CommentModal/CommentModal.jsx'
 import Footer from '../../components/Footer/Footer.jsx'
@@ -30,7 +30,7 @@ const Profile = () => {
     async function fetchProfile() {
       try {
         setLoading(true);
-        const res = await axios.get(`/api/users/${username}`);
+        const res = await api.get(`/users/${username}`);
         setProfileData(res.data);
         setEditForm({
           bio: res.data.bio || '',
@@ -52,7 +52,7 @@ const Profile = () => {
     }
     async function fetchProfilePosts(){
       try {
-        const res = await axios.get(`/api/users/${username}/posts`);
+        const res = await api.get(`/users/${username}/posts`);
         setProfilePosts(res.data)
       } catch (error) {
         console.error("Error loading profile posts:", error);
@@ -69,7 +69,7 @@ const Profile = () => {
     }
     async function fetchPaddock(){
       try {
-        const res = await axios.get(`/api/users/favorite/${username}`);
+        const res = await api.get(`/users/favorite/${username}`);
         setPaddockData(res.data)
         setPaddockOpen(true)
       } catch (error) {
@@ -98,7 +98,7 @@ const Profile = () => {
     e.preventDefault();
     setSubmitting(true);
     try {
-      const res = await axios.patch(`/api/users/${username}`, {
+      const res = await api.patch(`/users/${username}`, {
         bio: editForm.bio,
         avatar: editForm.avatar
       });
@@ -114,7 +114,7 @@ const Profile = () => {
   
   async function handleCreateChat(){
     try {
-      const res = await axios.post(`/api/chats`, {
+      const res = await api.post(`/chats`, {
         receiverId: profileData.id
       })
       navigate('/chat')

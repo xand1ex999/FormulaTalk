@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect, useRef } from 'react'
-import axios from 'axios'
+import api from '../../api.js'
 import './Chat.css'
 
 const ChatWindow = ({ chatId, messages, setMessages, currentUserId }) => {
@@ -10,7 +10,7 @@ const ChatWindow = ({ chatId, messages, setMessages, currentUserId }) => {
     if(!chatId) return;
     async function fetchMessages(){
       try {
-        const res = await axios.get(`/api/messages/${chatId}`)
+        const res = await api.get(`/messages/${chatId}`)
         setMessages(res.data)
         // console.log("Fetched messages:", res.data);
       } catch (error) {

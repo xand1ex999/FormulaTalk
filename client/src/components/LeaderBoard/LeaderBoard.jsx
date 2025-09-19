@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import api from '../../api.js';
 import '../LeaderBoard/LeaderBoard.css'
 import { useNavigate } from 'react-router-dom';
 
@@ -13,7 +13,7 @@ const Leaderboard = () => {
     async function fetchLeaderboard() {
       try {
         setLoading(true);
-        const res = await axios.get('/api/users/leaderboard');
+        const res = await api.get('/users/leaderboard');
         setLeaders(res.data);
       } catch (err) {
         console.error(err);

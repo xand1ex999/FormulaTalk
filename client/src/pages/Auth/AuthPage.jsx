@@ -4,7 +4,7 @@ import { replace, useNavigate, Navigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { toast } from "react-toastify";
 import './AuthPage.css';
-import axios from 'axios';
+import api from '../../api.js';
 import { Eye, EyeOff } from 'lucide-react';
 
 export default function AuthPage() {
@@ -27,7 +27,7 @@ export default function AuthPage() {
     setLoading(true);
     setError(null);
     try {
-      const res = await axios.post(mode === 'register' ? "/api/auth/register": "/api/auth/login",
+      const res = await api.post(mode === 'register' ? "/auth/register": "/auth/login",
         mode === "register" 
         ? { username, email, password }
         : { email, password }

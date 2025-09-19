@@ -1,5 +1,5 @@
 import React, { memo, useState, useEffect } from 'react'
-import axios from 'axios';
+import api from '../../api.js';
 import './SearchBar.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,7 +15,7 @@ const SearchBar = () => {
           setUsersFound([]);
           return;
         }
-        const res = await axios.get(`http://localhost:5000/api/users?search=${query}`);
+        const res = await api.get(`/users?search=${query}`);
         setUsersFound(res.data);
       } catch (error) {
         console.error("Search error:", error);

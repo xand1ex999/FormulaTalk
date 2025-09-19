@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from "react";
-import axios from "axios";
 import "./PostForm.css";
 import { toast } from "react-toastify";
 
@@ -21,7 +20,7 @@ const PostForm = ({ onPostCreated }) => {
     files.forEach(file => formData.append("files", file));
 
     try {
-      const res = await axios.post("/api/posts", formData);
+      const res = await api.post("/posts", formData);
       toast.success("Post created")
       setContent("");
       setFiles([]);

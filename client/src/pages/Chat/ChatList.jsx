@@ -1,5 +1,5 @@
 import React from 'react'
-import axios from 'axios'
+import api from '../../api.js'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import './Chat.css'
@@ -9,7 +9,7 @@ const ChatList = ({ chats, setChats, setSelectedChat,selectedChat, userId }) => 
   useEffect(()=>{
     async function fetchChats(){
       try {
-        const res = await axios.get(`/api/chats`)
+        const res = await api.get(`/chats`)
         setChats(res.data)
         // console.log('Fetched chats:', res.data);
       } catch (error) {
