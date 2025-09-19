@@ -21,7 +21,7 @@ const DB_URL = process.env.DB_URL;
 
 const allowedOrigins = [
   'http://localhost:5173',               
-  'https://formulatalk-webapp.onrender.com/' 
+  'https://formulatalk-webapp.onrender.com' 
 ];
 
 // Middleware
