@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: 'https://formulatalk-backend.onrender.com/api'
+  baseURL: 'localhost/api'
 });
 
 

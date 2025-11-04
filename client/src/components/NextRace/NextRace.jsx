@@ -143,12 +143,14 @@ const NextRace = () => {
                 </span>
               </div>
 
-              <div className="schedule-item-full">
-                <span className="session-type-full">Practice 2</span>
-                <span className="session-time-full">
-                  {formatSessionTime(raceData.SecondPractice.date, raceData.SecondPractice.time)}
-                </span>
-              </div>
+              {raceData.SecondPractice && (
+                <div className="schedule-item-full">
+                  <span className="session-type-full">Practice 3</span>
+                  <span className="session-time-full">
+                    {formatSessionTime(raceData.SecondPractice.date, raceData.SecondPractice.time)}
+                  </span>
+                </div>
+              )}
 
               {raceData.ThirdPractice && (
                 <div className="schedule-item-full">

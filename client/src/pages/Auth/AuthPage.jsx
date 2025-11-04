@@ -78,6 +78,7 @@ export default function AuthPage() {
               type="text"
               name="username"
               placeholder="Username"
+              autoComplete="username"
               value={username}
               onChange={(e)=>{setUsername(e.target.value)}}
               required
@@ -87,6 +88,7 @@ export default function AuthPage() {
               type="email"
               name="email"
               placeholder="Email Address"
+              autoComplete="email"
               value={email}
               onChange={(e)=>{setEmail(e.target.value)}}
               required
@@ -96,6 +98,7 @@ export default function AuthPage() {
                 type={showPassword ? "text" : "password"}
                 name="password"
                 placeholder="Password"
+                autoComplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
