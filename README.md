@@ -95,3 +95,14 @@ npm run dev
 ```bash
 http://localhost:5000
 ```
+---
+## Screenshots
+![image alt](https://github.com/xand1ex999/FormulaTalk/blob/8e2ed93a75581e94d2b8e94c08b3b128029110fb/images%20for%20repo/photo_2025-12-25_16-00-27.jpg)
+![image alt](https://github.com/xand1ex999/FormulaTalk/blob/782ddd9439d4e160a22915ca791dd11afd75c209/images%20for%20repo/photo_8_2025-12-25_15-52-27.jpg)
+![image alt](https://github.com/xand1ex999/FormulaTalk/blob/782ddd9439d4e160a22915ca791dd11afd75c209/images%20for%20repo/photo_1_2025-12-25_15-52-27.jpg)
+![image alt](https://github.com/xand1ex999/FormulaTalk/blob/782ddd9439d4e160a22915ca791dd11afd75c209/images%20for%20repo/photo_2_2025-12-25_15-52-27.jpg)
+![image alt](https://github.com/xand1ex999/FormulaTalk/blob/782ddd9439d4e160a22915ca791dd11afd75c209/images%20for%20repo/photo_3_2025-12-25_15-52-27.jpg)
+![image alt](https://github.com/xand1ex999/FormulaTalk/blob/782ddd9439d4e160a22915ca791dd11afd75c209/images%20for%20repo/photo_4_2025-12-25_15-52-27.jpg)
+![image alt](https://github.com/xand1ex999/FormulaTalk/blob/782ddd9439d4e160a22915ca791dd11afd75c209/images%20for%20repo/photo_5_2025-12-25_15-52-27.jpg)
+![image alt](https://github.com/xand1ex999/FormulaTalk/blob/782ddd9439d4e160a22915ca791dd11afd75c209/images%20for%20repo/photo_7_2025-12-25_15-52-27.jpg)
+![image alt](https://github.com/xand1ex999/FormulaTalk/blob/782ddd9439d4e160a22915ca791dd11afd75c209/images%20for%20repo/photo_6_2025-12-25_15-52-27.jpg)
